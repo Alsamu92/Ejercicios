@@ -64,14 +64,46 @@ console.log (promedio(nuevosNumeros))
 // longitud del string y lo sume. Puedes usar este array para probar tu función:
 const mixedElements = [6, 1, 'Rayo', 1, 'vallecano', '10', 'upgrade', 8, 'hub']
 
-// const contar =(miArray)=>{
-//   let acumuladorString =0
-//   let acumuladorNumber
-//   for(let c=0;c<miArray.length;c++){
-//     typeof miArray[c]=="string" ? miArray[c].length+=acumuladorString:miArray[c]+=acumuladorNumber
-//   }
+const contar =(miArray)=>{
+  let acumuladorString =0
+  let acumuladorNumber=0
+  for(let c=0;c<miArray.length;c++){
+    typeof miArray[c]=="string" ?acumuladorString=(miArray[c].length+=acumuladorString) :acumuladorNumber=(miArray[c]+=acumuladorNumber)
+  }
   
-//   return acumulador
-// }
-console.log(typeof mixedElements[0])
+  return`La suma de las string es ${acumuladorString} y las suma de los number es ${acumuladorNumber}`
+}
 console.log(contar(mixedElements))
+
+// **Iteración #6: Valores únicos**
+
+// Crea una función que reciba por parámetro un array y compruebe si existen elementos duplicados,
+//  en caso que existan los elimina para retornar un array sin los elementos duplicados. 
+const duplicates = [
+  'sushi',
+  'pizza',
+  'burger',
+  'potatoe',
+  'pasta',
+  'ice-cream',
+  'pizza',
+  'chicken',
+  'onion rings',
+  'pasta',
+  'soda']
+  
+ 
+removeDuplicates=(arreglo)=>{
+  let arregloSinDuplicados=[]
+  for(let x=0;x<arreglo.length;x++){
+if(!(arregloSinDuplicados.includes(arreglo[x])))
+{
+  arregloSinDuplicados.push(arreglo[x])
+
+}
+  }
+  return arregloSinDuplicados
+
+}
+
+console.log(removeDuplicates(duplicates))
