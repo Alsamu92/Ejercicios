@@ -90,7 +90,9 @@ const duplicates = [
   'chicken',
   'onion rings',
   'pasta',
-  'soda']
+  'soda',
+"pizza",
+"hot-dog"]
   
  
 removeDuplicates=(arreglo)=>{
@@ -107,3 +109,57 @@ if(!(arregloSinDuplicados.includes(arreglo[x])))
 }
 
 console.log(removeDuplicates(duplicates))
+
+// **Iteración #7: Buscador de nombres**
+
+// Crea una función que reciba por parámetro un array y el valor que desea comprobar que existe dentro de dicho array - 
+// comprueba si existe el elemento, 
+// en caso que existan nos devuelve un true y la posición de dicho elemento y por la contra un false.
+const nameFinder = [
+  'Peter',
+  'Steve',
+  'Tony',
+  'Natasha',
+  'Clint',
+  'Logan',
+  'Xabier',
+  'Bruce',
+  'Peggy',
+  'Jessica',
+  'Marc']
+let tuVariable="Pey"
+  const buscador=(arreglo2)=>{
+    let result=false
+    for(let f=0;f<arreglo2.length;f++){
+     arreglo2[f].includes(tuVariable)?result="true":""
+
+      }
+      return result
+  }
+  console.log(buscador(nameFinder))
+
+//   **Iteration #8: Contador de repeticiones**
+const counterWords = [
+  'code',
+  'repeat',
+  'eat',
+  'sleep',
+  'code',
+  'enjoy',
+  'sleep',
+  'code',
+  'enjoy',
+  'upgrade',
+  'code'
+];
+const countWordOccurrences=(wordsArray)=> {
+const countVerbs={}
+wordsArray.forEach(verb => {
+  countVerbs.hasOwnProperty(verb)?countVerbs[verb]+=1:countVerbs[verb]=1
+});
+return countVerbs
+}
+
+console.log(countWordOccurrences(counterWords))
+
+
