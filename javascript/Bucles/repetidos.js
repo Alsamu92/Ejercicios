@@ -10,9 +10,19 @@ const materiales = [
     "folio",
   ];
 // ----_> creamos la variable que se encarga de guardar la solucion del problema
-const countElement=[]
+const countElement={}
+for(let material of materiales){
+  if(countElement.hasOwnProperty(material)){
+    countElement[material]++
+  }else{
+    countElement[material]=1
+    
+  }
+}
+  for(material in countElement){
+    console.log(`EL material ${material} se repite ${countElement[material]} veces`)}
+ 
 
-materiales.forEach((material,index)=>{
- countElement.push(material+ " metido")
-})
-console.log(countElement)
+
+
+
