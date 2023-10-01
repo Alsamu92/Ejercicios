@@ -33,14 +33,16 @@ const users = [
         }
     },
 ]
-let sumaTotal=0
+
+let=sumaTotal=0
 let acc=0
 for(let user of users){
-    for(let tipo in user.favoritesSounds){
-        let sonido = user.favoritesSounds[tipo]
-sumaTotal+=sonido.volume
+    for(let estilo in user.favoritesSounds){
+        let valores=user.favoritesSounds[estilo]
+        sumaTotal+=valores.volume
 acc++
     }
-}
-let resultado=sumaTotal/acc
-console.log(resultado)
+   
+    }
+let media=sumaTotal/acc
+console.log(media)

@@ -10,3 +10,9 @@ const materiales = [
     "folio",
   ];
 // ----_> creamos la variable que se encarga de guardar la solucion del problema
+const countElement=[]
+
+materiales.forEach((material,index)=>{
+ countElement.push(material+ " metido")
+})
+console.log(countElement)
