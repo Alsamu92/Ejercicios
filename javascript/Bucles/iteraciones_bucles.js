@@ -30,15 +30,22 @@ const alumns = [
 		{name: 'Raquel Benito', T1: true, T2: true, T3: true}
 ]
 
-alumns.forEach((alumnado)=>{
+for(let alumno of alumns){
+    if((alumno.T1&&alumno.T2)||(alumno.T1&&alumno.T3)||(alumno.T2&&alumno.T3)){
+        alumno.itsAproved=true
+        console.log(alumno)
+    }
+}
 
-if(alumnado.T1&&alumnado.T2||alumnado.T1&&alumnado.T3||alumnado.T2&&alumnado.T3){
-    alumnado.itsApproved=true
-}else{alumnado.itsApproved=false}
-})
+// alumns.forEach((alumnado)=>{
+
+// if(alumnado.T1&&alumnado.T2||alumnado.T1&&alumnado.T3||alumnado.T2&&alumnado.T3){
+//     alumnado.itsApproved=true
+// }else{alumnado.itsApproved=false}
+// })
 
 
-console.log(alumns)
+// console.log(alumns)
 
 
 // **Iteración #3: Probando For...of**
