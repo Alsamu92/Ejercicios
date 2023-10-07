@@ -1,6 +1,8 @@
 import { printTemplateFooter } from "../components/Footer/footer"
+import { printTemplateGallery } from "../components/Gallery/Gallery"
+
 import { printTemplateHeader } from "../components/Header/Header"
-import { PrintTemplateMain } from "../components/Main/Main"
+
 
 export const initTemplate=()=>{
     const app =document.getElementById("app")
@@ -11,5 +13,6 @@ export const initTemplate=()=>{
     app.append(header,main,footer)
 printTemplateFooter()
 printTemplateHeader()
-PrintTemplateMain()
+printTemplateGallery()
+
 }
