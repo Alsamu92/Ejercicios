@@ -1,0 +1,30 @@
+nav ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    list-style: none;
+    gap: 10px;
+    padding: 10px;
+  
+}
+
+li{
+    font-size: 20px;
+    font-weight: bold;
+    color: yellow;
+    background-color: #356abc;
+    border-radius: 10px;
+    width: 10vw;
+    text-align: center;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    li {
+      width: 25vw;
+
+    }
+
+
+}
+

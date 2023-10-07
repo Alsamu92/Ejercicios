@@ -21,13 +21,29 @@
 }
 header{
   height: 15vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(213, 245, 10);
+  -webkit-box-shadow: -2px 5px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 5px 5px 0px rgba(0,0,0,0.75);
+box-shadow: -2px 5px 5px 0px rgba(0,0,0,0.75);
+  
 }
-main{min-height:75vh ;}
+
+
+
+
+
+main{min-height:75vh ;
+background-color: rgb(234, 243, 174);}
+
+
 footer{height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
-background-color: gray;
+background-color: rgb(122, 122, 122);
 }
 
 

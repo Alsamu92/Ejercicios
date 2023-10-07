@@ -1,0 +1,27 @@
+#logo{
+
+  
+    height:187% ;
+}
+#logo2{
+
+  
+    height:90% ;
+}
+
+nav{
+    min-width: 30vw;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    #logo2 {
+      display: none;
+
+    }
+nav{
+    width: 70vw;
+}
+
+}
