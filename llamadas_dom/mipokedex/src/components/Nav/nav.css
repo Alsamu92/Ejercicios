@@ -34,10 +34,14 @@ cursor: pointer;
 
 @media screen and (max-width: 768px) {
     li {
-      width: 25vw;
+      width: 30vw;
+      padding: 5px;
 
     }
 
-
+ul{
+    justify-content: center;
+    gap: 0px;
+}
 }
 

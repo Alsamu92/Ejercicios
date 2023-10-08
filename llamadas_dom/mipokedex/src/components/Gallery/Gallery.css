@@ -1,24 +1,42 @@
 #galeria{
     background-color: black;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 10px;
     gap: 20px;
   
 }
 .pokemon-card{
-  background-color: white;
+  background-color: rgb(208, 204, 204);
   color: black;
     text-align: center;
+    width: 20vw;
+    min-width: 230px;
+    height: 50vh;
     border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.pokemon-card h2{
+  font-size: 30px;
+
+}
+.pokemon-card img{
+    width: 80%;
+    height: 80%;
+
 }
 
 .pokemon-card:hover{
     transition: background-color 0.3s ease, color 0.3s ease;
--webkit-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
--moz-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
-cursor: pointer;
+-webkit-box-shadow: 2px 5px 29px 9px rgb(222, 251, 76);
+-moz-box-shadow: 2px 5px 29px 9px rgb(255, 252, 67);
+box-shadow: 2px 5px 29px 9px rgb(248, 255, 49);
+
 }
+

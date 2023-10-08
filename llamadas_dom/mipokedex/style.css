@@ -18,6 +18,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  cursor: url("/Ejercicios/DS_BANNER_1944x.jpg"),pointer;
 }
 header{
   height: 15vh;

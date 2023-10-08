@@ -21,7 +21,10 @@ nav{
 
     }
 nav{
-    width: 70vw;
+    width: 80vw;
+    
 }
-
+#logo{
+    width: 20vw
+}
 }
