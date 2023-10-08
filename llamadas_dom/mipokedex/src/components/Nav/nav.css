@@ -29,7 +29,7 @@ transition: background-color 0.3s ease, color 0.3s ease;
 -webkit-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
 -moz-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
 box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
-
+cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

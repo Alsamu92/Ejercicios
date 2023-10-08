@@ -1,3 +1,24 @@
-#galeria div{
+#galeria{
     background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+  
+}
+.pokemon-card{
+  background-color: white;
+  color: black;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.pokemon-card:hover{
+    transition: background-color 0.3s ease, color 0.3s ease;
+-webkit-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
+-moz-box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
+box-shadow: 2px 5px 29px 9px rgb(255, 255, 255);
+cursor: pointer;
 }

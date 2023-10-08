@@ -1,25 +1,43 @@
 import "./Gallery.css"
 
 const template=()=>`
-<div #galeria><h1></h1></div>
+<div id="galeria"></div>
 `
-const allPokemon=[]
-const getData =async()=>{
-    
-    for(let i=1;i<151;i++){
-const data =await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-const jsonData=await data.json()
-allPokemon.push(jsonData)
+// Función para obtener los datos de los primeros 150 Pokémon
+async function obtenerPokemon() {
+    const pokemonList = document.getElementById("galeria");
 
+    for (let i = 1; i <= 151; i++) {
+        const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+        const dataJson = await respuesta.json();
+        const nombre = dataJson.name;
+        const image = dataJson.sprites.front_default;
+
+        // Crear tarjeta individual para el Pokémon
+        const pokemonCard = document.createElement("div");
+        pokemonCard.classList.add("pokemon-card");
+
+        // Crear elementos para mostrar el nombre e imagen del Pokémon
+        const pokemonNombre = document.createElement("h3");
+        pokemonNombre.textContent = nombre;
+
+        const imagen = document.createElement("img");
+        imagen.src = image;
+
+        // Agregar elementos a la tarjeta
+        pokemonCard.appendChild(pokemonNombre);
+        pokemonCard.appendChild(imagen);
+
+        // Agregar la tarjeta a la lista
+        pokemonList.appendChild(pokemonCard);
     }
-   
-    const allPokemonMap=allPokemon.map((pokemon)=>({
-        name:pokemon.name,
-        image:pokemon.sprites.other.dream_world.front_default,
-    }))
-    console.log(allPokemonMap)
-       
-    }
+}
+
+
+
+
+    
+  
       
  
  
@@ -27,5 +45,5 @@ allPokemon.push(jsonData)
  
 export const printTemplateGallery=()=>{
     document.querySelector("main").innerHTML=template();
-  getData()
+    obtenerPokemon();
 }

@@ -3,10 +3,10 @@ import "./NavRight.css"
 const template=()=>`
 <nav>
 <ul>
-<li>hola</li>
-<li>Hola</li>
-<li>HOla</li>
-<li>HOla</li>
+<li>OUTWEAR</li>
+<li>CONTACT</li>
+<li>TOUR</li>
+<li>VIDEOS</li>
 </ul>
 </nav>
 `

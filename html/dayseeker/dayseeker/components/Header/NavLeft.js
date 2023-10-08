@@ -3,9 +3,9 @@ import "./NavLeft.css"
 const template=()=>`
 <nav>
 <ul>
-<li>hola</li>
-<li>Hola</li>
-<li>HOla</li>
+<li>HOME</li>
+<li>SHOP ALL</li>
+<li>TEES</li>
 </ul>
 </nav>
 `
