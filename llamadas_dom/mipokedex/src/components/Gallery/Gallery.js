@@ -1,7 +1,7 @@
 import "./Gallery.css"
 
 const template=()=>`
-<div #galeria></div>
+<div #galeria><h1></h1></div>
 `
 const allPokemon=[]
 const getData =async()=>{
@@ -12,20 +12,20 @@ const jsonData=await data.json()
 allPokemon.push(jsonData)
 
     }
-const allPokemonMap=allPokemon.map((pokemon)=>({
-    name:pokemon.name,
-    image:pokemon.sprites.other.dream_world.front_default,
-}))
-console.log(allPokemonMap)
    
-
-
- }
+    const allPokemonMap=allPokemon.map((pokemon)=>({
+        name:pokemon.name,
+        image:pokemon.sprites.other.dream_world.front_default,
+    }))
+    console.log(allPokemonMap)
+       
+    }
+      
  
  
  
  
 export const printTemplateGallery=()=>{
     document.querySelector("main").innerHTML=template();
-    getData()
+  getData()
 }
