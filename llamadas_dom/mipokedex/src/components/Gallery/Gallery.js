@@ -3,7 +3,6 @@ import "./Gallery.css"
 const template=()=>`
 <div id="galeria"></div>
 `
-// Función para obtener los datos de los primeros 150 Pokémon
 async function obtenerPokemon() {
     const pokemonList = document.getElementById("galeria");
 
@@ -15,14 +14,14 @@ async function obtenerPokemon() {
          
 
 
-function capitalizarPrimeraLetra(texto) {
+function mayusPrimeraLetra(texto) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
 
-const pokemonNombreCapitalizado = capitalizarPrimeraLetra(dataJson.name);
+const pokemonNombreMayus = mayusPrimeraLetra(dataJson.name);
 
-console.log(pokemonNombreCapitalizado); 
+console.log(pokemonNombreMayus); 
 
         const image = dataJson.sprites.other.dream_world.front_default
 
@@ -31,7 +30,7 @@ console.log(pokemonNombreCapitalizado);
 
        
         const pokemonNombre = document.createElement("h2");
-        pokemonNombre.textContent = pokemonNombreCapitalizado;
+        pokemonNombre.textContent = pokemonNombreMayus;
 
         const imagen = document.createElement("img");
         imagen.src = image;
@@ -47,6 +46,37 @@ console.log(pokemonNombreCapitalizado);
 
 
 
+  
+
+ 
+export const printTemplateGallery=()=>{
+    document.querySelector("main").innerHTML=template();
+    obtenerPokemon();
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
   
@@ -54,8 +84,3 @@ console.log(pokemonNombreCapitalizado);
  
  
  
- 
-export const printTemplateGallery=()=>{
-    document.querySelector("main").innerHTML=template();
-    obtenerPokemon();
-}

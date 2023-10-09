@@ -21,7 +21,8 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    transition: box-shadow 0.3s ease
+    transition: box-shadow 0.3s ease;
+    transform:0.3s ease
 }
 .pokemon-card h2{
   font-size: 30px;
@@ -40,6 +41,11 @@
 -webkit-box-shadow: 2px 5px 29px 9px rgb(222, 251, 76);
 -moz-box-shadow: 2px 5px 29px 9px rgb(255, 252, 67);
 box-shadow: 2px 5px 29px 9px rgb(248, 255, 49);
-transition: box-shadow 0.3s ease
+transition: box-shadow 0.3s ease;
+transform:scale(1.05) 
+}
+
+@media screen {
+  
 }
 
