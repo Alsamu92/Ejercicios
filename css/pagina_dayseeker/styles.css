@@ -85,10 +85,40 @@ main{
     animation: zoom 2s ease-in-out forwards, fade-in 2.5s ease-in-out forwards;
     overflow:hidden;
     z-index: -1;
+    object-fit: cover;
   
 }
 .galeria{
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10PX
+    ;
+}
+
+.galeria div{
+    width: 15vw;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    
+}
+.galeria div h2{
+    font-size: 13px;
+  
+    letter-spacing: 0.2em;
+}
+
+.galeria div img{
+    max-width: 100%;
 }
 iframe{
     width: 100%;
