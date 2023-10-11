@@ -14,8 +14,10 @@ console.log(pokemon)
 // 1.5 Usa querySelector para mostrar por consola todos los elementos con el atributo 
 // data-function="testMe".
 
-
+const testo= document.querySelectorAll("[data-function='testMe']")
+console.log(testo)
 // 1.6 Usa querySelector para mostrar por consola el 3 personaje con el atributo 
 // data-function="testMe".
 
 
+console.log(testo[2])
