@@ -19,12 +19,12 @@ function mayusPrimeraLetra(texto) {
 }
 
 
-const pokemonNombreMayus = mayusPrimeraLetra(dataJson.name);
+const pokemonNombreMayus = mayusPrimeraLetra(nombre);
 
-console.log(pokemonNombreMayus); 
+
 
         const image = dataJson.sprites.other.dream_world.front_default
-
+        const num=`#${[i]}`
         const pokemonCard = document.createElement("div");
         pokemonCard.classList.add("pokemon-card");
 
@@ -34,11 +34,13 @@ console.log(pokemonNombreMayus);
 
         const imagen = document.createElement("img");
         imagen.src = image;
+         const numero = document.createElement("h3");
+        numero.textContent = num;
 
-       
+      
         pokemonCard.appendChild(pokemonNombre);
         pokemonCard.appendChild(imagen);
-
+        pokemonCard.appendChild(numero)
       
         pokemonList.appendChild(pokemonCard);
     }

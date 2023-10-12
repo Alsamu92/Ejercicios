@@ -23,7 +23,7 @@ const mapData=data.map((personaje)=>({
 
 }))
 
-console.log(mapData)
+
 
 
 
