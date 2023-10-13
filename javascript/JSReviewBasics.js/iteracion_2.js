@@ -39,6 +39,7 @@ let acc=0
 for(let user of users){
     for(let estilo in user.favoritesSounds){
         let valores=user.favoritesSounds[estilo]
+        console.log(valores)
         sumaTotal+=valores.volume
 acc++
     }

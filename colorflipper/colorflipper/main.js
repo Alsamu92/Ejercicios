@@ -6,6 +6,7 @@ const paleta = {
   '#f28ce8': 'Pink Ranger',
   '#f7cf6b': 'Yellow Ranger',
   '#4f49ff': 'Blue Ranger',
+  'hola': 'ningun Ranger',
  
 }
 
