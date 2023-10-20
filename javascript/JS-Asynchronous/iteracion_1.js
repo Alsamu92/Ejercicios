@@ -22,7 +22,7 @@ const baseUrl = 'https://api.nationalize.io';
 const input = document.querySelector("input");
 let datosCompletos=[]
 const obtenerDatos = async (param = input.value) => {
-  const respuesta = await fetch(`${baseUrl}?name=${param}`); // Usar comillas inversas
+  const respuesta = await fetch(`${baseUrl}?name=${param}`);
   let data = await respuesta.json();
   datosCompletos.push(data)
   console.log(data);
@@ -33,17 +33,19 @@ const obtenerDatos = async (param = input.value) => {
 // a la api que diga...'El nombre X tiene un Y porciento de ser de Z' etc etc.
 // EJ: El nombre Pepe tiene un 22 porciento de ser de ET.
 const crearElemento=()=>{
-   
-const newElement=document.createElement("p")
-datosCompletos.forEach((nombre,index)=>{
+  
+  datosCompletos.forEach((nombre,index)=>{
+    const template=document.createElement("div")
+  const newElement=document.createElement("p")
     newElement.textContent=`El nombre ${input.value} tiene un ${nombre.country[0].probability} por ciento de ser de ${nombre.country[0].country_id}`
-    document.body.appendChild(newElement)
+    template.appendChild(newElement)
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
-    newElement.appendChild(deleteButton);
-    
-    
-})}
+    deleteButton.addEventListener("click",()=>{template.remove()})
+     template.appendChild(deleteButton);
+     document.body.appendChild(template)
+    datosCompletos=[]
+  })}
 
 
 const boton = document.querySelector("button");
@@ -56,3 +58,4 @@ boton.addEventListener("click", () => {
 // 1.4 En base al ejercicio anterior, crea un botón con el texto 'X' para cada uno 
 // de los p que hayas insertado y que si el usuario hace click en este botón 
 // eliminemos el parrafo asociado.
+ 
