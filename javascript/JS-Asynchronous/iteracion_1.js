@@ -37,7 +37,7 @@ const crearElemento=()=>{
   datosCompletos.forEach((nombre,index)=>{
     const template=document.createElement("div")
   const newElement=document.createElement("p")
-    newElement.textContent=`El nombre ${input.value} tiene un ${nombre.country[0].probability} por ciento de ser de ${nombre.country[0].country_id}`
+    newElement.textContent=`El nombre ${input.value} tiene un ${nombre.country[0].probability} % de ser de ${nombre.country[0].country_id}`
     template.appendChild(newElement)
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";

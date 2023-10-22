@@ -1,6 +1,9 @@
 import"./Cardchar.css"
 
-const template =({nombre,imagen})=>`
+
+
+export const printCardCharacter=(personaje)=>{
+    const template =({nombre,imagen})=>`
 <figure>
 <div>
 <img class=${nombre} src=${imagen} alt=${nombre}/>
@@ -8,9 +11,6 @@ const template =({nombre,imagen})=>`
 <h3>${nombre}</h3>
 </figure>
 `
-
-export const printCardCharacter=(personaje)=>{
-    console.log(personaje)
     const gallery = document.getElementById("galeria")
     gallery.innerHTML += template(personaje)
     
