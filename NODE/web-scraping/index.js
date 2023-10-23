@@ -5,7 +5,7 @@ import puppeteer from "puppeteer";
 //! -------------> funcion que hace el scrapping
 
 const scrapping = async (keyWord) => {
-  const BASE_URL = "https://www.dia.es/";
+  const BASE_URL = "https://www.carrefour.es/";
 
   const browser = await puppeteer.launch({
     headless: false,
@@ -28,18 +28,18 @@ const scrapping = async (keyWord) => {
   await page.goto(BASE_URL);
 
   // esperamos un poco tiempo a que se cargen todos los elementos de la pagina
-  await page.waitForTimeout(6000); /// ----> vamos ac esperar 6 segundos
+  await page.waitForTimeout(12000); /// ----> vamos ac esperar 6 segundos
 
   //! diferencia al anterior proyecto -----> vamos a utilizar el input para meterle la palabra que cogimos por la terminal
 
-  await page.click("#search-input-item");
+  await page.click("#search-input");
 
-  await page.type("#search-input-item", keyWord);
+  await page.type("#search-input", keyWord);
   await page.keyboard.press("Enter");
 
   // vamos a hacer los scroll porque ya nos cargado los elementos que hemos buscado en el input
   // esperamos un poco tiempo a que se cargen todos los elementos de la pagina
-  await page.waitForTimeout(6000); /// ----> vamos ac esperar 6 segundos
+  await page.waitForTimeout(8000); /// ----> vamos ac esperar 6 segundos
 
   // vamos a hacer varios scroll para cargar el mayor numero de elementos
 
@@ -52,7 +52,7 @@ const scrapping = async (keyWord) => {
   await page.waitForTimeout(6000);
 
   await page.evaluate(() => {
-    const element = document.getElementById("l-footer");
+    const element = document.querySelector(".ebx-empathy-x__footer");
     const y = element.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: y });
   });
@@ -60,7 +60,7 @@ const scrapping = async (keyWord) => {
   await page.waitForTimeout(6000);
 
   await page.evaluate(() => {
-    const element = document.getElementById("l-footer");
+    const element = document.querySelector(".ebx-empathy-x__footer");
     const y = element.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: y });
   });
@@ -68,7 +68,7 @@ const scrapping = async (keyWord) => {
   await page.waitForTimeout(6000);
 
   await page.evaluate(() => {
-    const element = document.getElementById("l-footer");
+    const element = document.querySelector(".ebx-empathy-x__footer");
     const y = element.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: y });
   });
@@ -76,7 +76,7 @@ const scrapping = async (keyWord) => {
   await page.waitForTimeout(6000);
 
   await page.evaluate(() => {
-    const element = document.getElementById("l-footer");
+    const element = document.querySelector(".ebx-empathy-x__footer");
     const y = element.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: y });
   });
@@ -84,24 +84,24 @@ const scrapping = async (keyWord) => {
   await page.waitForTimeout(6000);
 
   await page.evaluate(() => {
-    const element = document.getElementById("l-footer");
+    const element = document.querySelector(".ebx-empathy-x__footer");
     const y = element.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: y });
   });
 
-  await page.waitForTimeout(6000);
+  await page.waitForTimeout(8000);
 
   // vamos a decir que espere a que tengamos renderizado unos elementos concretos de la pagina
 
-  await page.waitForSelector(".search-product-card__top-section-content");
+  await page.waitForSelector(".product-card");
 
   //! forma mas rapida de coger los elementos dde la pantalla en un objeto de js
 
-  const diaProducts = await page.$$eval("search-product-card__top-section-content", (nodes) =>
+  const diaProducts = await page.$$eval(".product-card", (nodes) =>
     nodes.map((n) => ({
-      title: n.querySelector("p.search-product-card__product-name")?.innerText,
-      image: n.querySelector(".search-product-card-image")?.src,
-      price: n.querySelector(".search-product-card__active-price")?.innerText,
+      title: n.querySelector(".product-card__title-link track-click")?.innerText,
+      image: n.querySelector(".product-card__image")?.src,
+      price: n.querySelector(".product-card__price")?.innerText,
      
     }))
   );
