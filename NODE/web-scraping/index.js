@@ -2,8 +2,6 @@ import fs from "fs";
 import inquirer from "inquirer";
 import puppeteer from "puppeteer";
 
-//! -------------> funcion que hace el scrapping
-
 const scrapping = async (keyWord) => {
   const BASE_URL = "https://www.carrefour.es/";
 
@@ -13,7 +11,7 @@ const scrapping = async (keyWord) => {
     args: ["--start-maximized"],
   });
 
-  // vamos a abrir una pagina en el navegador
+
 
   const page = await browser.newPage();
   page.on('dialog', async (dialog) => {
@@ -24,24 +22,22 @@ const scrapping = async (keyWord) => {
   }
 });
 
-  // una vez abierta la pagina hay que navegar hasta la url de BASE_URL
+  
   await page.goto(BASE_URL);
 
-  // esperamos un poco tiempo a que se cargen todos los elementos de la pagina
-  await page.waitForTimeout(12000); /// ----> vamos ac esperar 6 segundos
 
-  //! diferencia al anterior proyecto -----> vamos a utilizar el input para meterle la palabra que cogimos por la terminal
+  await page.waitForTimeout(12000); 
+
 
   await page.click("#search-input");
 
   await page.type("#search-input", keyWord);
   await page.keyboard.press("Enter");
 
-  // vamos a hacer los scroll porque ya nos cargado los elementos que hemos buscado en el input
-  // esperamos un poco tiempo a que se cargen todos los elementos de la pagina
-  await page.waitForTimeout(8000); /// ----> vamos ac esperar 6 segundos
+ 
+  await page.waitForTimeout(8000); 
 
-  // vamos a hacer varios scroll para cargar el mayor numero de elementos
+
 
   await page.evaluate(() => {
     const element = document.getElementById("footer-signature");
@@ -95,7 +91,7 @@ const scrapping = async (keyWord) => {
 
   await page.waitForSelector(".product-card");
 
-  //! forma mas rapida de coger los elementos dde la pantalla en un objeto de js
+
 
   const diaProducts = await page.$$eval(".product-card", (nodes) =>
     nodes.map((n) => ({
@@ -112,7 +108,7 @@ const scrapping = async (keyWord) => {
     gameProducts
   );
 
-  // --------------> convertirlo a string para poder crear un archivo con font-size:
+
   const diaString = JSON.stringify(diaProducts);
 
   fs.writeFile(
