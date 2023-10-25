@@ -3,6 +3,7 @@ import inquirer from "inquirer";
 import puppeteer from "puppeteer";
 
 const scrapping = async (keyWord) => {
+  console.log(keyWord)
   const BASE_URL = "https://www.carrefour.es/";
 
   const browser = await puppeteer.launch({
@@ -130,6 +131,7 @@ inquirer
     },
   ])
   .then((answers) => {
+    console.log(answers.busqueda)
     let keyWord = answers.busqueda;
     scrapping(keyWord);
   });

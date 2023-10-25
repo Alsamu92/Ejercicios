@@ -4,19 +4,19 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const dotenv = require("dotenv");
 dotenv.config();
 
-
+//Creamos el almacen
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "CarpetaAlex",
+    folder: "carpetaalex",
     allowedFormats: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
   },
 });
 
-
+//Creamos la función de subir imagenes
 const upload = multer({ storage });
 
-
+//Función de borrado de imagenes
 const deleteImgCloudinary = (imgUrl) => {
   const imgSplited = imgUrl.split("/");
   const nameSplited = imgSplited[imgSplited.length - 1].split(".");
@@ -24,11 +24,14 @@ const deleteImgCloudinary = (imgUrl) => {
   const public_id = `${folderSplited}/${nameSplited[0]}`;
 
   cloudinary.uploader.destroy(public_id, () => {
-    console.log("Image delete in cloudinary");
+    console.log("Imagen borrada en cloudinary");
   });
 };
 
 const configCloudinary = () => {
+  console.log(process.env.CLOUDINARY_CLOUD_NAME)
+  console.log(process.env.CLOUDINARY_API_SECRET)
+  console.log(process.env.CLOUDINARY_API_KEY)
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_secret: process.env.CLOUDINARY_API_SECRET,

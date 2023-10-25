@@ -26,15 +26,16 @@ app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ limit: "5mb", extended: false }));
 
 
-const CharacterRoutes = require("./src/api/routes/Character.routes");
-app.use("/api/v1/characters/", CharacterRoutes);
+const ArticuloRoutes = require("./src/api/routes/Articulo.routes");
+app.use("/api/v1/articulos/", ArticuloRoutes);
 
 
 app.use("*", (req, res, next) => {
-  const error = new Error("Ruta no encontrada");
+  const error = new Error("Route not found");
   error.status = 404;
   return next(error);
 });
+
 
 app.use((error, req, res) => {
   return res
@@ -42,9 +43,7 @@ app.use((error, req, res) => {
     .json(error.message || "unexpected error");
 });
 
-
-
-
+app.disable("x-powered-by");
 app.listen(PORT, () =>
   console.log(`Server listening on port 👌🔍 http://localhost:${PORT}`)
 );
