@@ -118,34 +118,80 @@ const deleteArticulo = async (req, res, next) => {
 //todo CONTROLADOR UPDATE
 
 const update = async (req, res, next) => {
+  await Articulo.syncIndexes();
+  let catchImg = req.file?.path;
   try {
-    await Articulo.syncIndexes();
     const { id } = req.params;
     const ArticuloById = await Articulo.findById(id);
+    if (ArticuloById) {
+      const oldImg = ArticuloById.image;
 
-    if (!ArticuloById) {
-      return res.status(404).json("Este artículo no existe");
+      const customBody = {
+        _id: ArticuloById._id,
+        image: req.file?.path ? catchImg : oldImg,
+        name: req.body?.name ? req.body?.name : ArticuloById.name,
+        price: req.body?.price ? req.body?.price : ArticuloById.price
+      };
+
+
+      try {
+        await Articulo.findByIdAndUpdate(id, customBody);
+        if (req.file?.path) {
+          deleteImgCloudinary(oldImg);
+        }
+        const ArticuloByIdUpdate = await Articulo.findById(id);
+
+        const elementUpdate = Object.keys(req.body);
+
+   
+
+        let test = {};
+
+       
+
+        elementUpdate.forEach((item) => {
+          if (req.body[item] === ArticuloByIdUpdate[item]) {
+            test[item] = true;
+          } else {
+            test[item] = false;
+          }
+        });
+
+        if (catchImg) {
+          ArticuloByIdUpdate.image === catchImg
+            ? (test = { ...test, file: true })
+            : (test = { ...test, file: false });
+        }
+        let acc = 0;
+        for (clave in test) {
+          test[clave] == false && acc++;
+        }
+
+        if (acc > 0) {
+          return res.status(404).json({
+            dataTest: test,
+            update: false,
+          });
+        } else {
+          return res.status(200).json({
+            dataTest: test,
+            update: true,
+          });
+        }
+      } catch (error) {}
+    } else {
+      return res.status(404).json("este Articulo no existe");
     }
-
-    const fotoAntigua = ArticuloById.image;
-    const customBody = {
-      _id: ArticuloById._id,
-      image: req.file?.path ?req.file?.path: fotoAntigua,
-      name: req.body?.name ? req.body?.name: ArticuloById.name,
-      price: req.body?.price ?req.body?.price: ArticuloById.price,
-    };
-
-    await Articulo.findByIdAndUpdate(id, customBody);
-
-    if (req.file?.path && fotoAntigua) {
-      deleteImgCloudinary(fotoAntigua);
-    }
-
-    return res.status(200).json("Artículo actualizado con éxito");
   } catch (error) {
-    return res.status(500).json({ error: "Error interno en el servidor" });
+    return res.status(404).json(error);
   }
 };
+   
+    
+
+  
+
+//todo-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
