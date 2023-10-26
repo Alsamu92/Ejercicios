@@ -27,7 +27,10 @@ app.use(express.urlencoded({ limit: "5mb", extended: false }));
 
 
 const ArticuloRoutes = require("./src/api/routes/Articulo.routes");
+
 app.use("/api/v1/articulos/", ArticuloRoutes);
+const SuperRoutes = require("./src/api/routes/Supermercado.routes");
+app.use("/api/v1/supermercados/",SuperRoutes)
 
 
 app.use("*", (req, res, next) => {

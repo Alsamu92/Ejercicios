@@ -17,6 +17,7 @@ const ArticuloSchema = new Schema(
       type: String,
       required: false,
     },
+    supermercados: [{ type: mongoose.Schema.Types.ObjectId, ref: "Supermercado" }],
   },
   {
     timestamps: true,
