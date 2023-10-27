@@ -1,5 +1,6 @@
 const { deleteImgCloudinary } = require("../../middleware/files.middleware");
 const Articulo = require("../models/Articulo.model");
+const Supermercado = require("../models/Supermercado.model");
 
 //todo CONTROLADOR POST
 const create = async (req, res, next) => {
@@ -100,12 +101,21 @@ const deleteArticulo = async (req, res, next) => {
   try {
     const { id } = req.params;
     const article = await Articulo.findByIdAndDelete(id);
-
     if (article) {
       const findByIdArticulo = await Articulo.findById(id);
+try {
+ const test=await Supermercado.updateMany(
+  {articulos:id},
+  {$pull:{articulos:id}}
+ ) 
+ console.log(test)
       return res.status(findByIdArticulo ? 404 : 200).json({
         deleteTest: findByIdArticulo ? false : true,
       });
+ 
+} catch (error) {}
+    
+      
     } else {
       return res.status(404).json("Este artículo no está");
     }
