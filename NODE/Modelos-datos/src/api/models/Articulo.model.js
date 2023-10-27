@@ -10,7 +10,7 @@ const ArticuloSchema = new Schema(
   {
     name: { type: String, required: false, unique: false },
     price: {
-      type: Number,
+      type:String,
       required: true,
     },
     image: {

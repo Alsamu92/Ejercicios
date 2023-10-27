@@ -1,7 +1,12 @@
 const Articulo = require("../models/Articulo.model");
 const Supermercado = require("../models/Supermercado.model");
 
-const crearSupermercado=async(req,res,next)=>{
+
+
+                                   //todo CONTROLADOR POST
+
+
+                                   const crearSupermercado=async(req,res,next)=>{
     try {
         await Supermercado.syncIndexes()
         const nuevoSupermercado=new Supermercado(req.body)
@@ -18,11 +23,14 @@ const crearSupermercado=async(req,res,next)=>{
         )
     }
 }
+//todo-----------------------------------------------------------------------------------------------------------------------------------------
+                      //todo CONTROLADOR PATCH RELACIONAL
 
-const toggleArticulo=async(req,res,next)=>{
+                      const toggleArticulo=async(req,res,next)=>{
     const{id}=req.params
     const{articulos}=req.body
     const supermercadoByID=await Supermercado.findById(id)
+
 
     if(supermercadoByID){
         const arrayArticulos=articulos.split(",")
@@ -86,10 +94,131 @@ const toggleArticulo=async(req,res,next)=>{
 }
 
 
+//todo-----------------------------------------------------------------------------------------------------------------------------------------
+
+                           //todo CONTROLADOR BORRAR SUPER
 
 
+ const borrarSuper=async(req,res,nex)=>{
+    try {
+        const{id}=req.params
+const borrarSupermercado=await Supermercado.findByIdAndDelete(id)
+if (borrarSupermercado) {
+    const findByIdSuper = await Supermercado.findById(id);
+    return res.status(findByIdSuper? 404 : 200).json({
+      deleteTest: findByIdSuper ? false : true,
+    });
+  } else {
+    return res.status(404).json("Este súper no está");
+  }
+} catch (error) {
+  return res.status(404).json(error);
+}
+}              
+//todo-----------------------------------------------------------------------------------------------------------------------------------------
 
+                             //todo CONTROLADOR BUSCAR POR ID
 
+  const BuscarSuper=async(req,res,next)=>{
+    try {
+        const{id}=req.params
+        const SuperPorId=await Supermercado.findById(id)
+        if(SuperPorId){
+            return res.status(200).json(SuperPorId)
+        }else{
+            return res.status(404).json("No se ha encontrado")
+        }
+    } catch (error) {
+        return res.status(404).json("No encontrado")
+    }
+  }                           
+//todo-----------------------------------------------------------------------------------------------------------------------------------------
 
+                             //todo CONTROLADOR BUSCAR POR NOMBRE
+const buscarNameSuper=async(req,res,nex)=>{
+    try {
+        const {name}=req.params
+        const nombreSuper=await Supermercado.find({name})
+        if(nombreSuper.length>0){
+            return res.status(200).json(nombreSuper)
+        }else{
+            return res.status(404).json("No se ha encontado este super")
+        }
+    } catch (error) {
+      return res.status(404).json({
+        error:"No encontrado",
+        message:error.message
+      })  
+        
+    }
+}
+//todo-----------------------------------------------------------------------------------------------------------------------------------------
 
-module.exports={crearSupermercado, toggleArticulo}
+                             //todo CONTROLADOR UPDATE
+
+                             const update = async (req, res, next) => {
+                                await Supermercado.syncIndexes();
+                                let catchImg = req.file?.path;
+                                try {
+                                  const { id } = req.params;
+                                  const SuperById = await Supermercado.findById(id);
+                                  if (SuperById) {
+                                    const oldImg = SuperById.image;
+                              
+                                    const customBody = {
+                                      _id: SuperById._id,
+                                      image: req.file?.path ? catchImg : oldImg,
+                                      name: req.body?.name ? req.body?.name : SuperById.name,
+                                      price: req.body?.price ? req.body?.price : SuperById.price,
+                                    };
+                              
+                                    try {
+                                      await Supermercado.findByIdAndUpdate(id, customBody);
+                                      if (req.file?.path) {
+                                        deleteImgCloudinary(oldImg);
+                                      }
+                                      const SuperByIdUpdate = await Supermercado.findById(id);
+                              
+                                      const elementUpdate = Object.keys(req.body);
+                              
+                                      let test = {};
+                              
+                                      elementUpdate.forEach((item) => {
+                                        if (req.body[item] === SuperByIdUpdate[item]) {
+                                          test[item] = true;
+                                        } else {
+                                          test[item] = false;
+                                        }
+                                      });
+                              
+                                      if (catchImg) {
+                                        SuperByIdUpdate.image === catchImg
+                                          ? (test = { ...test, file: true })
+                                          : (test = { ...test, file: false });
+                                      }
+                                      let acc = 0;
+                                      for (clave in test) {
+                                        test[clave] == false && acc++;
+                                      }
+                              
+                                      if (acc > 0) {
+                                        return res.status(404).json({
+                                          dataTest: test,
+                                          update: false,
+                                        });
+                                      } else {
+                                        return res.status(200).json({
+                                          dataTest: test,
+                                          update: true,
+                                        });
+                                      }
+                                    } catch (error) {}
+                                  } else {
+                                    return res.status(404).json("este Super no existe");
+                                  }
+                                } catch (error) {
+                                  return res.status(404).json(error);
+                                }
+                              };                             
+
+module.exports={crearSupermercado, toggleArticulo,borrarSuper,BuscarSuper,buscarNameSuper,update}

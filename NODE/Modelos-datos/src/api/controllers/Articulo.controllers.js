@@ -130,9 +130,8 @@ const update = async (req, res, next) => {
         _id: ArticuloById._id,
         image: req.file?.path ? catchImg : oldImg,
         name: req.body?.name ? req.body?.name : ArticuloById.name,
-        price: req.body?.price ? req.body?.price : ArticuloById.price
+        price: req.body?.price ? req.body?.price : ArticuloById.price,
       };
-
 
       try {
         await Articulo.findByIdAndUpdate(id, customBody);
@@ -143,11 +142,7 @@ const update = async (req, res, next) => {
 
         const elementUpdate = Object.keys(req.body);
 
-   
-
         let test = {};
-
-       
 
         elementUpdate.forEach((item) => {
           if (req.body[item] === ArticuloByIdUpdate[item]) {
@@ -186,14 +181,8 @@ const update = async (req, res, next) => {
     return res.status(404).json(error);
   }
 };
-   
-    
-
-  
 
 //todo-------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 module.exports = {
   create,
