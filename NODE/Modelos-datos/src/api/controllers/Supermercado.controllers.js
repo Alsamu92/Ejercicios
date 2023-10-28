@@ -94,9 +94,16 @@ const borrarSuper = async (req, res, nex) => {
     const borrarSupermercado = await Supermercado.findByIdAndDelete(id);
     if (borrarSupermercado) {
       const findByIdSuper = await Supermercado.findById(id);
-      return res.status(findByIdSuper ? 404 : 200).json({
-        deleteTest: findByIdSuper ? false : true,
-      });
+      try {
+       const test= await Articulo.updateMany(
+          {supermercados:id},
+          {$pull: {supermercados:id}})
+          console.log(test)
+        return res.status(findByIdSuper ? 404 : 200).json({
+          deleteTest: findByIdSuper ? false : true,
+        });
+      } catch (error) {}
+     
     } else {
       return res.status(404).json("Este súper no está");
     }
