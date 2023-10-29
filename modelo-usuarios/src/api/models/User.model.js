@@ -29,14 +29,14 @@ const UserSchema = new mongoose.Schema(
       enum: ['admin', 'user'],
       required: true,
     },
-    // confirmationCode: {
-    //   type: Number,
-    //   required: true,
-    // },
-    // check: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    confirmationCode: {
+      type: Number,
+      required: true,
+    },
+    check: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
     },
