@@ -1,7 +1,9 @@
 //todo-----------CONTROLADOR PARA SUBIR NUEVO USUARIO-------------------
 
 const { deleteImgCloudinary } = require("../../../../NODE/Modelos-datos/src/middleware/files.middleware")
+const { getSendEmail, setSendEmail } = require("../../state/state.data")
 const randomCode = require("../../utils/randomCode")
+const sendEmail = require("../../utils/sendEmail")
 const User = require("../models/User.model")
 const nodemailer=require("nodemailer")
 
@@ -92,8 +94,12 @@ const borrarUser=async(req,res,nex)=>{
         const usuarioBorrado=await User.findByIdAndDelete(id)
 
         if (usuarioBorrado){
+           oldImage=usuarioBorrado.image
     const buscarUsuarioBorrado= await User.findById(usuarioBorrado)        
-return res.status(buscarUsuarioBorrado?404:200).json(buscarUsuarioBorrado?"No se ha borrado":"Se ha borrado")
+if(buscarUsuarioBorrado){
+    return res.status(404).json("El usuario no ha podido ser borrado")
+}else{deleteImgCloudinary(oldImage)
+return res.status(200).json("el articulo ha sido borrado")}
 
         }
        
@@ -101,6 +107,7 @@ return res.status(buscarUsuarioBorrado?404:200).json(buscarUsuarioBorrado?"No se
             return res.status(404).json("El artículo no está")
         }
         
+
     } catch (error) {
         return res.status(404).json({
             message:"Error al borrar",
@@ -176,5 +183,78 @@ const update = async (req, res, next) => {
       return res.status(404).json(error);
     }
   };
+//todo---------------------------------------------------------------------
+//todo-----------REGISTER ESTADO-------------------
 
-module.exports={subirUser,borrarUser,update}
+const registerEstado = async (req,res,next)=>{
+  let catchImg = req.file?.path;
+
+  try {
+    await User.syncIndexes();
+
+      let confirmationCode = randomCode();
+    const { email, name } = req.body;
+
+    const userExist = await User.findOne(
+      { email: req.body.email },
+      { name: req.body.name }
+    );
+
+    if (!userExist){
+      const newUser = new User({ ...req.body, confirmationCode });
+      if (req.file) {
+        newUser.image = req.file.path;
+      } else {
+        newUser.image = 'https://pic.onlinewebfonts.com/svg/img_181369.png';
+      }
+
+      try {
+        const userSave = await newUser.save();
+
+        if(userSave){
+      
+          sendEmail(email, name, confirmationCode )
+
+          setTimeout( ()=>{
+            if(getSendEmail()){
+             res.status(200).json({
+                user: userSave,
+                confirmationCode,
+              })
+              setSendEmail(false)
+          }else{
+            setSendEmail(false)
+              return res.status(404).json({
+                user: userSave,
+                confirmationCode: 'error, resend code',
+              });
+          }
+          }, 1400 )
+        }
+        
+      } catch (error) {
+        req.file && deleteImgCloudinary(catchImg);
+        return res.status(404).json({
+          error: 'error catch save',
+          message: error.message,
+        });  
+      }
+
+    }else{
+        if (req.file) deleteImgCloudinary(catchImg);
+        return res.status(409).json('this user already exist');
+    }
+
+  } catch (error) {
+      req.file && deleteImgCloudinary(catchImg);
+    return (
+      res.status(404).json({
+        error: 'error catch general',
+        message: error.message,
+      }) && next(error)
+    );
+    
+  }
+}
+
+module.exports={subirUser,borrarUser,update,registerEstado}

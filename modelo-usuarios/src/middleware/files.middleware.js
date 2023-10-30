@@ -8,7 +8,7 @@ dotenv.config();
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Modelo Usuarios",
+    folder: "modelo usuarios",
     allowedFormats: ["jpg", "png", "jpeg", "gif", "svg", "webp"],
   },
 });

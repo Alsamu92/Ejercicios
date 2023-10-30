@@ -12,7 +12,7 @@ const conectarBd=async()=>{
             useUnifiedTopology: true,
           })
           const { name, host } = bd.connection;
-          console.log(`Conectada la Base de Datos en el Host${host} con el nombre ${name}😁 `)
+          console.log(`Conectada la Base de Datos en el Host${host} con el nombre ${name}😍 `)
     } catch (error) {
         console.log("No se ha podido conectar❌",error)
     }
