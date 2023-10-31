@@ -1,10 +1,12 @@
 //todo-----------CONTROLADOR PARA SUBIR NUEVO USUARIO-------------------
-
+const bcrypt = require("bcrypt");
 const {
   deleteImgCloudinary,
 } = require("../../../../NODE/Modelos-datos/src/middleware/files.middleware");
+const setError = require("../../../helpers/handle-error");
 const { getSendEmail, setSendEmail } = require("../../state/state.data");
 const randomCode = require("../../utils/randomCode");
+const randomPassword = require("../../utils/randomPassword");
 const sendEmail = require("../../utils/sendEmail");
 const { generateToken } = require("../../utils/token");
 const User = require("../models/User.model");
@@ -216,7 +218,6 @@ const registerEstado = async (req, res, next) => {
                 user: userSave,
                 confirmationCode,
               });
-             
             } else {
               setSendEmail(false);
               return res.status(404).json({
@@ -250,76 +251,70 @@ const registerEstado = async (req, res, next) => {
 
 //todo---------------------------------------------------------------------
 //todo-----------REGISTER CON REDIRECT-------------------
-const registerRedirect=async(req,res,next)=>{
-let catchImg=req.file?.path
-try {
-await User.syncIndexes()
-let confirmationCode=randomCode()
-//establece esta variable para saber si ya esta registrado.
-const userExist= await User.findOne(
-  {email:req.body.email},
-  {name:req.body.name}
-)
+const registerRedirect = async (req, res, next) => {
+  let catchImg = req.file?.path;
+  try {
+    await User.syncIndexes();
+    let confirmationCode = randomCode();
+    //establece esta variable para saber si ya esta registrado.
+    const userExist = await User.findOne(
+      { email: req.body.email },
+      { name: req.body.name }
+    );
 
-if(!userExist){
-  const newUser= new User({...req.body,confirmationCode})
-if(req.file){
-  newUser.image=req.file.path
-}else{
-  newUser.image="https://pic.onlinewebfonts.com/svg/img_181369.png"
-}
+    if (!userExist) {
+      const newUser = new User({ ...req.body, confirmationCode });
+      if (req.file) {
+        newUser.image = req.file.path;
+      } else {
+        newUser.image = "https://pic.onlinewebfonts.com/svg/img_181369.png";
+      }
 
-try {
-const usuarioGuardado=await newUser.save()
-if(usuarioGuardado){
-return res.redirect(
-  307,
-  `http://localhost:8080/api/v1/users/register/sendMail/${usuarioGuardado._id}`
-)
-}
-  
-} catch (error) {
-  req.file&&deleteImgCloudinary(catchImg)
-  return res.status(404).json({
-    error:"error al guardar",
-    message:error.message
-  })
-}
+      try {
+        const usuarioGuardado = await newUser.save();
+        if (usuarioGuardado) {
+          return res.redirect(
+            307,
+            `http://localhost:8080/api/v1/users/register/sendMail/${usuarioGuardado._id}`
+          );
+        }
+      } catch (error) {
+        req.file && deleteImgCloudinary(catchImg);
+        return res.status(404).json({
+          error: "error al guardar",
+          message: error.message,
+        });
+      }
+    } else {
+      req.file && deleteImgCloudinary(catchImg);
+      return res.status(409).json("Este usuario ya está registrado");
+    }
 
-
-
-
-}else{
-  req.file&&deleteImgCloudinary(catchImg)
-  return res.status(409).json("Este usuario ya está registrado")
-}
-
-
-
-  req.file&&deleteImgCloudinary(catchImg)
-} catch (error) {
-  return (res.status(404).json({
-   error:"error catch general",
-   message:error.message
-  })&&next(error)
-  )
-}
-}
+    req.file && deleteImgCloudinary(catchImg);
+  } catch (error) {
+    return (
+      res.status(404).json({
+        error: "error catch general",
+        message: error.message,
+      }) && next(error)
+    );
+  }
+};
 
 //todo -----------------------------------------------------------------------------
 //todo ----------------------------SEND CODE CONFIRMATION--------------------------
 //todo -----------------------------------------------------------------------------
 //!Esta función será llamada al mandarse la petición por la ruta.
 
-const sendCode=async(req,res,next)=>{
+const sendCode = async (req, res, next) => {
   try {
-    const{id}=req.params
-    const userDB=await User.findById(id)
+    const { id } = req.params;
+    const userDB = await User.findById(id);
     const emailEnv = process.env.EMAIL;
     const password = process.env.PASSWORD;
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: emailEnv,
         pass: password,
@@ -329,7 +324,7 @@ const sendCode=async(req,res,next)=>{
     const mailOptions = {
       from: emailEnv,
       to: userDB.email,
-      subject: 'Confirmation code',
+      subject: "Confirmation code",
       text: `tu codigo es ${userDB.confirmationCode}, gracias por confiar en nosotros ${userDB.name}`,
     };
 
@@ -338,10 +333,10 @@ const sendCode=async(req,res,next)=>{
         console.log(error);
         return res.status(404).json({
           user: userDB,
-          confirmationCode: 'error, resend code',
+          confirmationCode: "error, resend code",
         });
       } else {
-        console.log('Email sent: ' + info.response);
+        console.log("Email sent: " + info.response);
         return res.status(200).json({
           user: userDB,
           confirmationCode: userDB.confirmationCode,
@@ -349,17 +344,14 @@ const sendCode=async(req,res,next)=>{
       }
     });
   } catch (error) {
-    return res.status(404).json({
-      error:"Error en el catch general",
-      message:error.message
-    })&&next(error)
+    return (
+      res.status(404).json({
+        error: "Error en el catch general",
+        message: error.message,
+      }) && next(error)
+    );
   }
-}
-
-
-
-
-
+};
 
 //todo---------------------------------------------------------------------
 //todo-----------LOGIN-------------------
@@ -369,12 +361,11 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     const userDb = await User.findOne({ email });
-          
+
     if (userDb) {
-        //Si existe y conincide la pass generar el token
+      //Si existe y conincide la pass generar el token
       if (bcrypt.compareSync(password, userDb.password)) {
         const token = generateToken(userDb._id, email);
-        
 
         return res.status(200).json({
           user: userDb,
@@ -390,5 +381,175 @@ const login = async (req, res, next) => {
     return next(error);
   }
 };
+//todo---------------------------------------------------------------------
+//todo-----------RESEND CODE-----------------------------------------------
+const resendCode = async (req, res, next) => {
+  try {
+    const email = process.env.EMAIL;
+    const password = process.env.PASSWORD;
 
-module.exports = { subirUser, borrarUser, update, registerEstado,login,registerRedirect,sendCode };
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: email,
+        pass: password,
+      },
+    });
+    const userExist = await User.findOne({ email: req.body.email });
+
+    if (userExist) {
+      const mailOptions = {
+        from: email,
+        to: req.body.email,
+        subject: "Confirmation code",
+        text: `tu codigo es ${userExist.confirmationCode}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+          return res.status(404).json({
+            resend: false,
+          });
+        } else {
+          console.log("Email enviado: " + info.response);
+          return res.status(200).json({
+            resend: true,
+          });
+        }
+      });
+    } else {
+      return res.status(404).json("Usuario no encontrado");
+    }
+  } catch (error) {
+    return next(setError(500, error.message || "Error general "));
+  }
+};
+//todo---------------------------------------------------------------------
+//todo-----------CHECK NEW USER--------------------------------------------
+
+const checkUser = async (req, res, next) => {
+  try {
+    const { email, confirmationCode } = req.body;
+    const userExist = await User.findOne({ email });
+    if (!userExist) {
+      return res.status(404).json("Usuario no encontrado");
+    } else {
+      if (userExist.confirmationCode == confirmationCode) {
+        try {
+          await userExist.updateOne({ check: true });
+          const userActualizado = await User.findOne({ email });
+          return res.status(200).json({
+            testCkeckUser: userActualizado.check == true ? true : false,
+          });
+        } catch (error) {
+          return res.status(404).json({
+            error: "error en el catch update",
+            message: error.message,
+          });
+        }
+      } else {
+        await User.findByIdAndDelete(userExist._id);
+        deleteImgCloudinary(userExist.image);
+        return res.status(404).json({
+          userExist,
+          check: false,
+          delete: (await User.findById(userExist._id))
+            ? "Error al borrar usuario"
+            : "Usuario borrado",
+        });
+      }
+    }
+  } catch (error) {
+    return next(setError(500, error.message || "error general"));
+  }
+};
+
+//todo---------------------------------------------------------------------
+//todo-----------CAMBIO CONTRASEÑA DESLOGADO-------------------------------
+const cambiarContrasena = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const userDb = await User.findOne({ email });
+    if (userDb) {
+      return res.redirect(
+        307,
+        `http://localhost:8080/api/v1/usuario/sendPassword/${userDb._id}`
+      );
+    } else {
+      return res.status(404).json("Usuario no registrado");
+    }
+  } catch (error) {
+    return next(setError(500, error.message || "Error general"));
+  }
+};
+//todo REDIRECT ---SENDPASSWORD-------------------
+const sendPassword = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userDb = await User.findById(id);
+    const contrasenaSegura = randomPassword();
+
+    //traer variables de entorno para nodemailer.
+    const email = process.env.EMAIL;
+    const password = process.env.PASSWORD;
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: email,
+        pass: password,
+      },
+    });
+    const mailOptions = {
+      from: email,
+      to: userDb.email,
+      subject: "Nuevo código de acceso",
+      text: `Usuario: ${userDb.name}. Tu nuevo código de acceso es  ${contrasenaSegura} Hemos enviado esto porque tenemos una solicitud de cambio de contraseña, si no has sido ponte en contacto con nosotros, gracias.`,
+    };
+    transporter.sendMail(mailOptions, async function (error, info) {
+      if (error) {
+        return res.status(404).json("No se ha podido enviar el email");
+      } else {
+        const newPass = bcrypt.hashSync(contrasenaSegura, 10);
+        await User.findByIdAndUpdate(id, { password: newPass });
+        try {
+          const usuarioActualizado = await User.findById(id);
+
+          if (
+            bcrypt.compareSync(contrasenaSegura, usuarioActualizado.password)
+          ) {
+            return res.status(200).json({
+              updateUSer: true,
+              sendPassword: true,
+            });
+          } else {
+            return res.status(404).json({
+              updateUSer: false,
+              sendPassword: true,
+            });
+          }
+        } catch (error) {
+          return res.status(404).json({
+            error: "error catch al actualizar",
+            message: error.message,
+          });
+        }
+      }
+    });
+  } catch (error) {
+    return next(setError(500, error.message || "Error general"));
+  }
+};
+
+module.exports = {
+  subirUser,
+  borrarUser,
+  update,
+  registerEstado,
+  login,
+  registerRedirect,
+  sendCode,
+  checkUser,
+  cambiarContrasena,
+  sendPassword,
+};
