@@ -8,7 +8,7 @@ const generateToken = (id, email) => {
 
  
   if (!id || !email) {
-    throw new Error('Email or id are missing');
+    throw new Error('Email o id no encontrados');
   }
 
 
@@ -19,7 +19,7 @@ const generateToken = (id, email) => {
 
 const verifyToken = (token) => {
  
-  if (!token) throw new Error('Token is missing');
+  if (!token) throw new Error('Token no encontrado');
  
   return jwt.verify(token, process.env.JWT_SECRET);
 };

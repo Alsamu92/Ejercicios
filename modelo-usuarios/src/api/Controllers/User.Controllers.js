@@ -6,6 +6,7 @@ const {
 const { getSendEmail, setSendEmail } = require("../../state/state.data");
 const randomCode = require("../../utils/randomCode");
 const sendEmail = require("../../utils/sendEmail");
+const { generateToken } = require("../../utils/token");
 const User = require("../models/User.model");
 const nodemailer = require("nodemailer");
 
@@ -210,11 +211,12 @@ const registerEstado = async (req, res, next) => {
 
           setTimeout(() => {
             if (getSendEmail()) {
+              setSendEmail(false);
               res.status(200).json({
                 user: userSave,
                 confirmationCode,
               });
-              setSendEmail(false);
+             
             } else {
               setSendEmail(false);
               return res.status(404).json({
@@ -245,6 +247,120 @@ const registerEstado = async (req, res, next) => {
     );
   }
 };
+
+//todo---------------------------------------------------------------------
+//todo-----------REGISTER CON REDIRECT-------------------
+const registerRedirect=async(req,res,next)=>{
+let catchImg=req.file?.path
+try {
+await User.syncIndexes()
+let confirmationCode=randomCode()
+//establece esta variable para saber si ya esta registrado.
+const userExist= await User.findOne(
+  {email:req.body.email},
+  {name:req.body.name}
+)
+
+if(!userExist){
+  const newUser= new User({...req.body,confirmationCode})
+if(req.file){
+  newUser.image=req.file.path
+}else{
+  newUser.image="https://pic.onlinewebfonts.com/svg/img_181369.png"
+}
+
+try {
+const usuarioGuardado=await newUser.save()
+if(usuarioGuardado){
+return res.redirect(
+  307,
+  `http://localhost:8080/api/v1/users/register/sendMail/${usuarioGuardado._id}`
+)
+}
+  
+} catch (error) {
+  req.file&&deleteImgCloudinary(catchImg)
+  return res.status(404).json({
+    error:"error al guardar",
+    message:error.message
+  })
+}
+
+
+
+
+}else{
+  req.file&&deleteImgCloudinary(catchImg)
+  return res.status(409).json("Este usuario ya está registrado")
+}
+
+
+
+  req.file&&deleteImgCloudinary(catchImg)
+} catch (error) {
+  return (res.status(404).json({
+   error:"error catch general",
+   message:error.message
+  })&&next(error)
+  )
+}
+}
+
+//todo -----------------------------------------------------------------------------
+//todo ----------------------------SEND CODE CONFIRMATION--------------------------
+//todo -----------------------------------------------------------------------------
+//!Esta función será llamada al mandarse la petición por la ruta.
+
+const sendCode=async(req,res,next)=>{
+  try {
+    const{id}=req.params
+    const userDB=await User.findById(id)
+    const emailEnv = process.env.EMAIL;
+    const password = process.env.PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: emailEnv,
+        pass: password,
+      },
+    });
+
+    const mailOptions = {
+      from: emailEnv,
+      to: userDB.email,
+      subject: 'Confirmation code',
+      text: `tu codigo es ${userDB.confirmationCode}, gracias por confiar en nosotros ${userDB.name}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return res.status(404).json({
+          user: userDB,
+          confirmationCode: 'error, resend code',
+        });
+      } else {
+        console.log('Email sent: ' + info.response);
+        return res.status(200).json({
+          user: userDB,
+          confirmationCode: userDB.confirmationCode,
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(404).json({
+      error:"Error en el catch general",
+      message:error.message
+    })&&next(error)
+  }
+}
+
+
+
+
+
+
 //todo---------------------------------------------------------------------
 //todo-----------LOGIN-------------------
 
@@ -253,10 +369,12 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     const userDb = await User.findOne({ email });
-
+          
     if (userDb) {
+        //Si existe y conincide la pass generar el token
       if (bcrypt.compareSync(password, userDb.password)) {
         const token = generateToken(userDb._id, email);
+        
 
         return res.status(200).json({
           user: userDb,
@@ -273,4 +391,4 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { subirUser, borrarUser, update, registerEstado };
+module.exports = { subirUser, borrarUser, update, registerEstado,login,registerRedirect,sendCode };
