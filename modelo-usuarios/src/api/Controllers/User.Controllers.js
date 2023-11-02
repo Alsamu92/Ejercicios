@@ -11,7 +11,7 @@ const sendEmail = require("../../utils/sendEmail");
 const { generateToken } = require("../../utils/token");
 const User = require("../models/User.model");
 const nodemailer = require("nodemailer");
-
+const validator=require("validator")
 const subirUser = async (req, res, next) => {
   let catchImg = req.file?.path;
 
@@ -87,33 +87,7 @@ const subirUser = async (req, res, next) => {
     );
   }
 };
-//todo---------------------------------------------------------------------
-//todo-----------CONTROLADOR PARA BORRAR USUARIO-------------------
 
-const borrarUser = async (req, res, nex) => {
-  const { id } = req.params;
-  try {
-    const usuarioBorrado = await User.findByIdAndDelete(id);
-
-    if (usuarioBorrado) {
-      oldImage = usuarioBorrado.image;
-      const buscarUsuarioBorrado = await User.findById(usuarioBorrado);
-      if (buscarUsuarioBorrado) {
-        return res.status(404).json("El usuario no ha podido ser borrado");
-      } else {
-        deleteImgCloudinary(oldImage);
-        return res.status(200).json("el articulo ha sido borrado");
-      }
-    } else {
-      return res.status(404).json("El artículo no está");
-    }
-  } catch (error) {
-    return res.status(404).json({
-      message: "Error al borrar",
-      error: error.message,
-    });
-  }
-};
 //todo---------------------------------------------------------------------
 //todo-----------CONTROLADOR PARA ACTUALIZAR USUARIO-------------------
 
@@ -541,6 +515,67 @@ const sendPassword = async (req, res, next) => {
   }
 };
 
+//todo -----------------------Cambiar contraseña logeado-------------------
+
+const cambiarPass= async(req,res,next)=>{
+  try {
+    const{password,newPassword}=req.body
+    const validarPass=validator.isStrongPassword(newPassword)
+if(validarPass){
+const{_id}=req.user
+if(bcrypt.compareSync(password,req.user.password)){
+const hasNewPass=bcrypt.hashSync(newPassword,10)
+try {
+  await User.findByIdAndUpdate(_id,{password:hasNewPass})
+  const userActualizado=await  User.findById(_id)
+  if(bcrypt.compareSync(newPassword,userActualizado.password)){
+return res.status(200).json({updateUSer:true})
+  }else{
+    return res.status(404).json({updateUSer:false})
+  }
+
+
+} catch (error) {
+  return res.status(404).json({
+    error:"Error al actualizar la contraseña",
+    message:error.message
+  })
+}
+
+}else{
+  return res.status(404).json("La contraseña no coincide")
+}
+}else{
+  return res.status(404).json("La contraseña no es segura")
+}
+
+  } catch (error) {
+    return next(
+      setError(500,error.message || "Error general al cambiar contaseña")
+    )
+  }
+}
+//todo---------------------------------------------------------------------
+//todo-----------CONTROLADOR PARA BORRAR USUARIO-------------------
+
+const borrarUser = async (req, res, nex) => {
+  try {
+  await User.findByIdAndDelete(req.user?._id)
+  deleteImgCloudinary(req.user?.image)
+
+  const testDelete= await User.findById(req.user?._id)
+  return res.status(testDelete?404:200).json({deleteTest:testDelete?false:true})
+
+  } catch (error) {
+    return res.status(404).json({
+      message: "Error al borrar",
+      error: error.message,
+    });
+  }
+};
+//todo -----------------------UPDATE-------------------
+
+
 module.exports = {
   subirUser,
   borrarUser,
@@ -552,4 +587,5 @@ module.exports = {
   checkUser,
   cambiarContrasena,
   sendPassword,
+  cambiarPass,
 };

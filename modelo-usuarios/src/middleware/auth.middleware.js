@@ -5,10 +5,6 @@ const { verifyToken } = require('../utils/token');
 const dotenv = require('dotenv');
 dotenv.config();
 
-//!-------------------------------------------------------------------------------------
-//?  la primera funcion para saber de forma geneeral si estas auteenticado ------------
-//!---------------------------------------------------------------------------------------
-
 const isAuth = async (req, res, next) => {
 
 
