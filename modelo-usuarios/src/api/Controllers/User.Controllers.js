@@ -11,7 +11,8 @@ const sendEmail = require("../../utils/sendEmail");
 const { generateToken } = require("../../utils/token");
 const User = require("../models/User.model");
 const nodemailer = require("nodemailer");
-const validator=require("validator")
+const validator=require("validator");
+const enumOk = require("../../utils/enumOk");
 const subirUser = async (req, res, next) => {
   let catchImg = req.file?.path;
 
@@ -89,72 +90,7 @@ const subirUser = async (req, res, next) => {
 };
 
 //todo---------------------------------------------------------------------
-//todo-----------CONTROLADOR PARA ACTUALIZAR USUARIO-------------------
 
-const update = async (req, res, next) => {
-  await User.syncIndexes();
-  let catchImg = req.file?.path;
-  try {
-    const { id } = req.params;
-    const UserById = await User.findById(id);
-    if (UserById) {
-      const oldImg = UserById.image;
-
-      const customBody = {
-        _id: UserById._id,
-        image: req.file?.path ? catchImg : oldImg,
-        name: req.body?.name ? req.body?.name : ArticuloById.name,
-      };
-
-      try {
-        await User.findByIdAndUpdate(id, customBody);
-        if (req.file?.path) {
-          deleteImgCloudinary(oldImg);
-        }
-        const UserByIdUpdate = await User.findById(id);
-
-        const elementUpdate = Object.keys(req.body);
-
-        let test = {};
-
-        elementUpdate.forEach((item) => {
-          if (req.body[item] === UserByIdUpdate[item]) {
-            test[item] = true;
-          } else {
-            test[item] = false;
-          }
-        });
-
-        if (catchImg) {
-          UserByIdUpdate.image === catchImg
-            ? (test = { ...test, file: true })
-            : (test = { ...test, file: false });
-        }
-        let acc = 0;
-        for (clave in test) {
-          test[clave] == false && acc++;
-        }
-
-        if (acc > 0) {
-          return res.status(404).json({
-            dataTest: test,
-            update: false,
-          });
-        } else {
-          return res.status(200).json({
-            dataTest: test,
-            update: true,
-          });
-        }
-      } catch (error) {}
-    } else {
-      return res.status(404).json("este Usuario no existe");
-    }
-  } catch (error) {
-    return res.status(404).json(error);
-  }
-};
-//todo---------------------------------------------------------------------
 //todo-----------REGISTER ESTADO-------------------
 
 const registerEstado = async (req, res, next) => {
@@ -573,7 +509,104 @@ const borrarUser = async (req, res, nex) => {
     });
   }
 };
-//todo -----------------------UPDATE-------------------
+//todo-----------CONTROLADOR PARA ACTUALIZAR USUARIO-------------------
+
+const update = async (req, res, next) => {
+  let catchImg = req.file?.path;
+  try {
+    await User.syncIndexes();
+    // guardar lo que pasamos por la req en una variable
+    const patchUser = new User(req.body);
+    req.file && (patchUser.image = catchImg);
+
+    /** la info que el user no puede cambiar */
+    patchUser._id = req.user._id;
+    patchUser.password = req.user.password;
+    patchUser.rol = req.user.rol;
+    patchUser.confirmationCode = req.user.confirmationCode;
+    patchUser.email = req.user.email;
+    patchUser.check = req.user.check;
+
+
+    if (req.body?.gender) {
+      const resultEnum = enumOk(req.body?.gender);
+      patchUser.gender = resultEnum.check ? req.body?.gender : req.user.gender;
+    }
+
+    try {
+   // actualizar cambiando la req.user._id ,que es lo que hay en bd por lo nuevo.
+      await User.findByIdAndUpdate(req.user._id, patchUser);
+
+  //si hay imagen nueva hay que borrar la vieja
+      if (req.file) deleteImgCloudinary(req.user.image);
+
+      //todo ------ Cerrar los catch que hacen el testing-------------------
+
+   
+      const updateUser = await User.findById(req.user._id);
+ const updateKeys = Object.keys(req.body);
+      const testUpdate = [];
+
+      updateKeys.forEach((item) => {
+        //la info tiene que ser igual en la db que lo que pidio que se cambiara
+        if (updateUser[item] === req.body[item]) {ç
+          //y tiene que ser de contenido diferente. no puedes cambiar genero de hombre a hombre
+          if (updateUser[item] != req.user[item]) {
+            testUpdate.push({
+              [item]: true,
+            });
+          } else {
+          
+            testUpdate.push({
+              [item]: 'La información no puede ser igual a la anterior',
+            });
+          }
+
+        } else {
+          testUpdate.push({
+            [item]: false,
+          });
+        }
+      });
+
+      if (req.file) {
+    
+        updateUser.image === catchImg
+          ? testUpdate.push({
+              image: true,
+            })
+          : testUpdate.push({
+              image: false,
+            });
+      }
+    
+      return res.status(200).json({
+        updateUser,
+        testUpdate,
+      });
+    } catch (error) {
+      req.file && deleteImgCloudinary(catchImg);
+      return res.status(404).json({
+        error: 'error catch update',
+        message: error.message,
+      });
+    }
+  } catch (error) {
+    req.file && deleteImgCloudinary(catchImg);
+    return next(
+      setError(500, error.message || 'Error general to UPDATE with AUTH')
+    );
+  }
+};
+//todo---------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 module.exports = {
