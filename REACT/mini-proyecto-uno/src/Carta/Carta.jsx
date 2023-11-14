@@ -6,7 +6,7 @@ export const Carta = ({name,image,origin}) => {
   <img src={image} alt={name}/>
   <article>
     <h3>{name}</h3>
-    <h3>{origin}</h3>
+    <h4>{origin}</h4>
   </article>
 </figure>
   )
