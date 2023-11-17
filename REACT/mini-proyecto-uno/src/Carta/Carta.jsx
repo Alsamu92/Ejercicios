@@ -1,12 +1,11 @@
 import React from 'react'
 import "./Carta.css"
-export const Carta = ({name,image,origin}) => {
+export const Carta = ({name,image}) => {
   return (
-    <figure class="carta">
+    <figure >
   <img src={image} alt={name}/>
   <article>
     <h3>{name}</h3>
-    <h4>{origin}</h4>
   </article>
 </figure>
   )

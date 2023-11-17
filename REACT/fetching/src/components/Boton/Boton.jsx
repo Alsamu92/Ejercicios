@@ -2,7 +2,8 @@
 
 export const Boton = ({event,children}) => {
   return (
-    <button  onClick={event}>
+    <button  onClick={ event}>
+      
    {children}
   </button>
   )

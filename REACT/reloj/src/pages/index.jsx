@@ -1,0 +1,5 @@
+// export * from"./Cronometro/Cronometro"
+export * from"./Home/Home"
+export * from"./CuentaAtras/CuentaAtras"
+export * from"./PrimerReloj/PrimerReloj"
+export * from"./Cronometro/Cronometro"

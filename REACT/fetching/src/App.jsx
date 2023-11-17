@@ -5,7 +5,9 @@ import { useFetch } from "./hooks/useFetch";
 
 function App() {
   const { counter, increment, decrement, reset } = useCounter();
+  console.log(increment)
   const { data, hasError, isLoading } = useFetch(
+   
     `https://api.breakingbadquotes.xyz/v1/quotes/${counter}`
   );
   //**el id es el numero de citas, no el unitario, por lo que queremos que solo refleje la ultima */
@@ -19,14 +21,14 @@ function App() {
       //**Si no esta cargando muestra los componentes */
       <>
         <Cita quote={quote} author={author} />
-        <Boton onClick={() => decrement()}>
+        <Boton event={() => decrement()}>
           Atras
         </Boton>
        
-        <Boton onClick={() => reset()}>
+        <Boton event={() => reset()}>
           Inicio
         </Boton>
-        <Boton onClick={() => increment()}>
+        <Boton event={() => increment()}>
           Siguiente
         </Boton>
         

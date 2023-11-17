@@ -1,7 +1,0 @@
-section{
-display: flex;
-justify-content: space-around; /* Ajusta según tus preferencias */
-align-items: center;
-flex-wrap: wrap;
-gap: 20px;
-padding: 20px;}

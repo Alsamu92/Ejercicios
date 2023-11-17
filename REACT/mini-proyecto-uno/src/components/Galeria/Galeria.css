@@ -1,0 +1,19 @@
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+button{
+    background-color: purple;
+}
+
+section{
+display: flex;
+justify-content: space-around; /* Ajusta según tus preferencias */
+align-items: center;
+flex-wrap: wrap;
+gap: 20px;
+padding: 20px;}
