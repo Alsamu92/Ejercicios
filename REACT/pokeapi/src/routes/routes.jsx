@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
         element: <Galeria/>,
       },
       {
-        path: "/galeria/personaje/:id",
+        path: "/personaje/:id",
         element: <Detalle/>,
       }
     ],

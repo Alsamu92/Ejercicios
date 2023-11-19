@@ -1,0 +1,40 @@
+.info{
+    background-color: rgba(255, 0, 0, 0);
+    z-index: 6;
+    position: relative;
+    width: 10%;
+    height:10% ;
+    top:32%;
+    right: 5%;
+    text-align: center;
+    color: rgb(34, 197, 34);
+}
+.info p,.info h3{
+    width: 100px;
+    text-align: center;
+}
+
+.sumar{
+    z-index: 6;
+    position: relative;
+    width: 2%;
+    height: 5%;
+    top: 18%;
+    left: 40%;
+    background-color: rgba(127, 255, 212, 0);
+    border: none;
+}
+.restar{
+    z-index: 6;
+    position: relative;
+    width: 2%;
+    height: 5%;
+    top: 14%;
+    left: 25%;
+    background-color: rgba(127, 255, 212, 0);
+    border: none;
+}
+
+.sumar,.restar:hover{
+cursor: pointer;
+}
