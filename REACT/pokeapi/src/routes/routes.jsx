@@ -1,6 +1,6 @@
 import { createBrowserRouter} from "react-router-dom";
 import App from "../App";
-import { Galeria, Home } from "../pages";
+import { Galeria, Home, Tipos } from "../pages";
 import { Detalle } from "../pages/Detalle/Detalle";
 
 
@@ -20,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "/personaje/:id",
         element: <Detalle/>,
+      },
+      {
+        path: "/tipos",
+        element: <Tipos/>,
       }
     ],
   },

@@ -1,6 +1,8 @@
 #contenedor {
     height: 19%; 
     width: 80%;
+    position: relative;
+    top: 4%;
 border-radius: 10px;
     background-color:rgba(153, 153, 153, 0) ;
     overflow-y: auto; 
@@ -8,6 +10,7 @@ margin:4px 0px 8% 10%;
 
     
   }
+
   #contenedor::-webkit-scrollbar {
     display: none;
   }
@@ -66,9 +69,19 @@ input{
 
 .buscar{
   width: 54px;
-  height: 33px;
+  height: 28px;
   position: relative;
-  top: 5%;
+  top: 1%;
   left: 9%;
   background-color: #33313100;
+}
+.busqueda-tipos{
+  width: 10%;
+  position: relative;
+  border-radius: 50%;
+  height:7%;
+ 
+  top: 12%;
+  right: 30%;
+  background-color: rgba(207, 207, 62, 0.847);
 }

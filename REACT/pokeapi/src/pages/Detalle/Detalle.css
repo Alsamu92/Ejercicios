@@ -17,22 +17,30 @@
 .sumar{
     z-index: 6;
     position: relative;
-    width: 2%;
+    width: 5%;
     height: 5%;
-    top: 18%;
+    top: 20%;
     left: 40%;
     background-color: rgba(127, 255, 212, 0);
-    border: none;
+    border-top:0px solid black ;
+    border-bottom:5px solid black ;
+    border-left:0px solid black ;
+
 }
 .restar{
     z-index: 6;
     position: relative;
-    width: 2%;
+    width: 6%;
     height: 5%;
-    top: 14%;
-    left: 25%;
+    top: 15%;
+    left: 27%;
+    transform: rotate(180deg);
     background-color: rgba(127, 255, 212, 0);
-    border: none;
+    border-top:5px solid black ;
+    border-bottom:0px solid black ;
+    border-left:0px solid black ;
+   
+    
 }
 
 .sumar,.restar:hover{

@@ -41,7 +41,7 @@ const navigate = useNavigate()
  
 
   </div>
- 
+  <button onClick={() =>navigate(`/tipos`)}className="busqueda-tipos"></button>
   <button className="buscar" onClick={handleClick}></button>
   <input type="text" placeholder="Pikachu|"value={valorInput} onChange={handleInputChange} />
   </div>)
