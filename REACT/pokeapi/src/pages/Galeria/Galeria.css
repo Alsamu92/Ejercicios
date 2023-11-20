@@ -41,6 +41,7 @@ margin:4px 0px 8% 10%;
   
     height: 600px; 
     background-image: url('https://res.cloudinary.com/djfkchzyq/image/upload/v1700391223/o5bi2hzh8ouoxcdeny6t.jpg');
+   
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -73,7 +74,7 @@ input{
   position: relative;
   top: 1%;
   left: 9%;
-  background-color: #33313100;
+  background-color: #e7e3e3be;
 }
 .busqueda-tipos{
   width: 10%;

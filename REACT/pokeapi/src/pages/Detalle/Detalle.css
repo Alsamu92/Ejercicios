@@ -46,3 +46,27 @@
 .sumar,.restar:hover{
 cursor: pointer;
 }
+.sumar::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 6px; /* Ajusta este valor para controlar la posición del triángulo */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 8px; /* Ajusta estos valores para cambiar el tamaño del triángulo */
+    border-color: transparent transparent transparent yellow; /* Cambia 'yellow' por tu color deseado */
+    transform: translateY(-50%);
+  }
+.restar::before {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 7px; /* Ajusta este valor para controlar la posición del triángulo */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 0 5px 8px; /* Ajusta estos valores para cambiar el tamaño del triángulo */
+    border-color: transparent transparent transparent yellow; /* Cambia 'yellow' por tu color deseado */
+    transform: translateY(-50%);
+  }

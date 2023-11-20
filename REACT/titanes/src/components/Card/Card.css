@@ -1,0 +1,54 @@
+/* Tarjeta.css */
+.tarjeta {
+    display: flex;
+    width: 400px;
+    background-color: #fff;
+    border: 2px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    transition: transform 0.3s ease-in-out;
+    font-family: Arial, sans-serif;
+    color: black;
+  }
+  
+  .tarjeta:hover {
+    transform: scale(1.05);
+  }
+  
+  .imagen {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 60%;
+  }
+  
+  h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .campo {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para el nombre en la parte superior */
+  .nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilo para el número de documento en la esquina superior derecha */
+  .numero-documento {
+    align-self: flex-end;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  

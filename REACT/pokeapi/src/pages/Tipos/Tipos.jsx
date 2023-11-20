@@ -6,7 +6,7 @@ import { BotonAtras, CardDetail } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 export const Tipos = () => {
-  const todosLosPokemon = getAll();
+  const todosLosPokemon =getAll();
   const tiposPokemon = traerTipos();
   const [elementosMostrados, setElementosMostrados] = useState(todosLosPokemon);
   const [filtro, setFiltro] = useState('');
