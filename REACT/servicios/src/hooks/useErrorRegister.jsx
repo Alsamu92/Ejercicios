@@ -1,6 +1,7 @@
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
 
 export const useErrorRegister = (res, setOk, setRes) => {
+  console.log(res?.response?.data)
   //? si la respuesta es ok ---- > directamente esta el status en la primera clave es decir: res.status
   //? si la respuesta no esta ok--> res.response.status
   //! ------------------ 200 : todo ok
@@ -29,7 +30,7 @@ export const useErrorRegister = (res, setOk, setRes) => {
   }
 
   //! ------------------- La contraseña no esta en el formato correcto
-  if (res?.response?.data?.includes("validation failed: password")) {
+  if (res?.response?.data?.message.includes("User validation failed: password:")) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -42,8 +43,7 @@ export const useErrorRegister = (res, setOk, setRes) => {
 
   //! ------------------- cuando el userName ya existe
   if (
-    res?.response?.data?.includes(
-      "E11000 duplicate key error collection: userProyect.users"
+    res?.response?.data?.message?.includes("E11000 duplicate key error collection"
     )
   ) {
     Swal.fire({

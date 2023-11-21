@@ -1,0 +1,14 @@
+.ciudad-detalle{
+    background-image: url("https://res.cloudinary.com/djfkchzyq/image/upload/v1700584887/u4sf9bslzcygowrl5jju.png");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    width: 800px;
+    min-width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 50px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5)
+  }

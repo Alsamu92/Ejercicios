@@ -5,7 +5,7 @@ export const Card = ({name,children,edad,estado,ocupacion,lugar,src}) => {
     <div className="tarjeta">
     <img className="imagen" src={src} alt={name}></img>
     <div className="info">
-      <h2>{children}</h2>
+      <h2>{name}</h2>
       <div className="campo"><strong>Edad:</strong> {edad}</div>
       <div className="campo"><strong>Estado:</strong> {estado}</div>
       <div className="campo"><strong>Lugar de Nacimiento:</strong> {lugar}</div>
