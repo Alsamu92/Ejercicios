@@ -10,7 +10,7 @@
     transition: transform 0.3s ease-in-out;
     font-family: Arial, sans-serif;
     color: black;
-    border: 5px solid yellow;
+    border: 5px solid rgb(211, 135, 22);
   }
   
   .tarjeta:hover {
@@ -21,6 +21,7 @@
     width: 40%;
     height: auto;
     object-fit: cover;
+    border-right: 2px solid black;
   }
   
   .info {

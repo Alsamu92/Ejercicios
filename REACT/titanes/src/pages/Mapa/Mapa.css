@@ -12,6 +12,7 @@
     align-items: center;
     border-radius: 10px;
     margin-top: 50px;
+    max-height: 650px;
   }
   .circulo-ciudad {
     width: 100px;

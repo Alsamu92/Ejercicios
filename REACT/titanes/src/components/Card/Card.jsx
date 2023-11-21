@@ -1,6 +1,6 @@
 import React from 'react'
 import"./Card.css"
-export const Card = ({name,children,edad,estado,ocupacion,lugar,src}) => {
+export const Card = ({name,edad,estado,ocupacion,lugar,src}) => {
   return (
     <div className="tarjeta">
     <img className="imagen" src={src} alt={name}></img>
