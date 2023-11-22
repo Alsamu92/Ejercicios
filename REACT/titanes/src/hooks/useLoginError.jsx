@@ -11,7 +11,8 @@ export const useLoginError = (res, setRes, userLogin, setLoginOk) => {
       check: res.data.user.check,
       _id: res.data.user._id,
     };
-
+// como ahora estamos logados hacemos el custom data para quedarnos lo que nos interesa
+//lo convierto en un string y llamo a la funcion del contexto,que lo mete en el estado.
     const stringUser = JSON.stringify(dataCustom);
     userLogin(stringUser);
     setLoginOk(() => true);
@@ -25,9 +26,9 @@ export const useLoginError = (res, setRes, userLogin, setLoginOk) => {
     });
   }
 
-  //! ----------------- 404: 'User no register'
+  //! ----------------- 404: 'User no registered'
 
-  if (res?.response?.data?.includes("User no register")) {
+  if (res?.response?.data?.includes("usuario no registrado")) {
     setRes(() => ({}));
     Swal.fire({
       icon: "error",
@@ -40,7 +41,7 @@ export const useLoginError = (res, setRes, userLogin, setLoginOk) => {
 
   //!------------------ 404: 'password dont match'
 
-  if (res?.response?.data?.includes("password dont match")) {
+  if (res?.response?.data?.includes("La contraseña no coincide")) {
     setRes(() => ({}));
     Swal.fire({
       icon: "error",

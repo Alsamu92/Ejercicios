@@ -29,8 +29,10 @@ export const AuthContextProvider = ({ children }) => {
     const dataJson = JSON.parse(data);
     console.log(dataJson);
     switch (state) {
+      //recibe por el parametro del registrer setea el local storage en el estado alluser
       case "ALLUSER":
         setAllUser(dataJson);
+        //cuando lo guarde en el estado que lo borre del local
         localStorage.removeItem("data");
 
         break;
@@ -61,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
       setAllUser,
       bridgeData,
     }),
+    //que rememorice cuando cambie cualquiera de estas dos
     [user, allUser]
   );
 

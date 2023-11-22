@@ -21,9 +21,11 @@ export const useCheckCodeError = (
   }
 
   // ------------------------- 200 test todo correcto
-
-  if (res?.data?.testCheckOk?.toString() == "true") {
+//convertir a string por seguridad
+  if (res?.data?.testCheckUser?.toString() == "true") {
+    console.log("aaaaaaaaaaa")
     /// si viene del login modificamos el estado de user del contexto para poner el check en true
+    //este viene del login
     if (localStorage.getItem("user")) {
       const currentUser = localStorage.getItem("user");
       const parseUser = JSON.parse(currentUser);
@@ -62,7 +64,7 @@ export const useCheckCodeError = (
   }
 
   // -------------- 200: delete: 'ok delete user'
-  if (res?.data?.delete?.includes("ok delete user")) {
+  if (res?.response?.data?.delete?.includes("Usuario borrado")) {
     // esto le enviamos al register porque le henmos borrrado el usuario
     setOkDeleteUser(() => true);
     setRes(() => ({}));
@@ -76,7 +78,7 @@ export const useCheckCodeError = (
   }
 
   // ------------- 200: delete: 'error delete user'
-  if (res?.data?.delete?.includes("error delete user")) {
+  if (res?.response?.data?.delete?.includes("Error al borrar usuario")) {
     setRes(() => ({}));
     Swal.fire({
       icon: "error",
@@ -89,15 +91,15 @@ export const useCheckCodeError = (
 
   // ------------- userNoFound ---> 404
 
-  if (res?.response?.status == 404) {
-    setUserNotFound(() => true);
-    setRes(() => ({}));
-    Swal.fire({
-      icon: "error",
-      title: "Interval server error ❎.",
-      text: "No delete user. Try again, please.",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  }
+  // if (res?.response?.status == 404) {
+  //   setUserNotFound(() => true);
+  //   setRes(() => ({}));
+  //   Swal.fire({
+  //     icon: "error",
+  //     title: "Interval server error ❎.",
+  //     text: "No delete user. Try again, please.",
+  //     showConfirmButton: false,
+  //     timer: 1500,
+  //   });
+  // }
 };

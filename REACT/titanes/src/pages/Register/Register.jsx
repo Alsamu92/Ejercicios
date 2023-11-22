@@ -19,9 +19,6 @@ export const Register = () => {
   const [send, setSend] = useState(false);
   const [okRegister, setRegisterOk] = useState(false);
 
-  //! ------------------------------------------------------------------------------
-  //? 1) funcion que se encarga del formulario - de la data del formulario
-  //! ------------------------------------------------------------------------------
 
   const formSubmit = async (formData) => {
     const inputFile = document.getElementById("file-upload").files;
@@ -48,30 +45,20 @@ export const Register = () => {
     }
   };
 
-  //! ------------------------------------------------------------------------------
-  //? 2) funcion que se encarga del formulario- de la data del formulario
-  //! ------------------------------------------------------------------------------
-  useEffect(() => {
-    console.log(res);
-  }, [res]);
 
-  //! ------------------------------------------------------------------------------
-  //? 3) Estados de navegacion ----> lo veremos en siguiente proyectos
-  //! ------------------------------------------------------------------------------
   useEffect(() => {
     console.log(res);
     useErrorRegister(res, setRegisterOk, setRes);
+    //si es un 200 llama a la funcion puente
     if (res?.status == 200) bridgeData("ALLUSER");
   }, [res]);
-
+//este useEffect nos da un console para ver que esta pasando.Lo dejo comentado para futuras pruebas
   useEffect(() => {
     console.log("😍", allUser);
   }, [allUser]);
 
-  //! ------------------------------------------------------------------------------
-  //? 3) Estados de navegacion ----> lo veremos en siguiente proyectos
-  //! ------------------------------------------------------------------------------
   if (okRegister) {
+    //si todo esta ok navega a la pagina del codigo
     return <Navigate to="/verifyCode" />;
   }
   return (

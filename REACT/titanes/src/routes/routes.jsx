@@ -4,8 +4,10 @@ import { App } from "../App";
 import { Mapa } from "../pages/Mapa/Mapa";
 import { CheckCode, Dashboard, Login, MapaCiudad } from "../pages";
 import { Register } from "../pages/Register/Register";
-import { Protected } from "../components";
+import { Protected } from "../components/ProtectedRoute/Protected";
 import ProtectedCheckChildren from "../components/ProtectedRoute/ProtectedCheckChildren";
+
+
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/verifyCode",
         element: 
-            <CheckCode />
+        //primero pasa por el componente padre y accede al hijo si cumple
+        <ProtectedCheckChildren>
+        <CheckCode />
+      </ProtectedCheckChildren>
         
       },
     ],

@@ -16,7 +16,7 @@ export const Header = () => {
           />
           <div className="titleContainer">
             <h1 className="titleHeader">USER PAGE</h1>
-            <h1 className="titleHeaderBlack">USER PAGE</h1>
+           
           </div>
         </div>
         <nav>
@@ -52,6 +52,7 @@ export const Header = () => {
               src="https://res.cloudinary.com/dq186ej4c/image/upload/v1685706203/9e3c325bca17c2147d249237c5a0906b_qhqifa.png"
               alt=""
               className="iconNav iconLogout"
+              //esta funcion viene del contexto
               onClick={() => logout()}
             />
           )}
@@ -59,6 +60,7 @@ export const Header = () => {
             <>
               <NavLink to="/profile">
                 <img
+                //cambia a la imagen del user
                   className="profileCircle"
                   src={user.image}
                   alt={user.user}

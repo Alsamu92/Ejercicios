@@ -12,8 +12,10 @@ export const Login = () => {
   const [res, setRes] = useState({});
   const [send, setSend] = useState(false);
   const [loginOk, setLoginOk] = useState(false);
+  //cuando este logado meter datos del usuario
   const { login, setUser } = useAuth();
   //! ---------- FUNCION QUE GESTIONA LA DATA DEL FORMULARIO-----------------------
+  //Es igual que la del register
   const formSubmit = async (formData) => {
     setSend(true);
     setRes(await loginUserService(formData));
@@ -22,10 +24,10 @@ export const Login = () => {
 
   //! ---------USEffect ASOCIADO A LA RES PARA GESTIONAR LOS ERRORES----------------
   useEffect(() => {
-    console.log(res);
+   //cada vez que cambie la respuesta laza la gestion de errores
     useLoginError(res, setRes, login, setLoginOk);
   }, [res]);
-
+//si llega al login estando logado se setea al estado inicial y lo borra del local
   useEffect(() => {
     setUser(() => null);
     localStorage.removeItem("user");
@@ -33,7 +35,9 @@ export const Login = () => {
 
   //! ---------- LOS CONDICIONALES QUE GESTIONAN LOS ESTADOS DE NAVEGACION--------------
   if (loginOk) {
+    //si sale 200 en el login
     if (res.data.user.check == false) {
+      //si el token es false lo manda a verificar, si es true al dashboard
       return <Navigate to="/verifyCode" />;
     } else {
       return <Navigate to="/dashboard" />;

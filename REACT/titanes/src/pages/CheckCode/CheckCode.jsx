@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/authContext";
-import { checkCodeConfirmationUser, resendCodeConfirmationUser } from "../../services/user.service";
-import { useAutoLogin } from "../../hooks/useAutoLogin";
+
+
 import { useCheckCodeError } from "../../hooks/useCheckCodeError";
+import { checkCodeConfirmationUser } from "../../services/user.service";
+import { useAutoLogin } from "../../hooks/useAutoLogin";
+
 
 export const CheckCode = () => {
   const navigate = useNavigate();
@@ -27,16 +30,20 @@ export const CheckCode = () => {
     const userLocal = localStorage.getItem("user");
 
     if (userLocal == null) {
-      /// entramos por el register
+      ///  si no esta en el local es que entramos por el register
       const custFormData = {
+      //lo cogemos del formadata y lo convertimos a numero
         confirmationCode: parseInt(formData.confirmationCode),
+        //allUser es una respuesta
         email: allUser.data.user.email,
       };
+      //el send se usa para deshabilitar los botones
       setSend(true);
       setRes(await checkCodeConfirmationUser(custFormData));
       setSend(false);
     } else {
-      // estamos entrando por el login
+      // si existe es que estamos entrando por el login
+      //hace lo mismo que lo de arriba pero coge la info de otro sitio
       const parseUser = JSON.parse(userLocal);
       const customFormData = {
         email: parseUser.email,
@@ -63,19 +70,21 @@ export const CheckCode = () => {
     );
   }, [res]);
 
-  useEffect(() => {
-    console.log("😃", resResend);
-  }, [resResend]);
+  // useEffect(() => {
+  //   console.log("😃", resResend);
+  // }, [resResend]);
 
   //! -------- PONEMOS LOS CONDICIONALES QUE EVALUAN SI ESTAN A TRUE LOS ESTADOS DE NAVEGACION (deleUser, okCheck)
   if (okCheck) {
+    console.log("primer if")
     /// aqwui vamos a hacer  el autologin para cuando viene del register
     // para cuando viene del login lo gestionamos en el usecheckCodeError ---> modificamos el localstorage y el user del contexto
     if (!localStorage.getItem("user")) {
-      console.log("No va")
+     //solo voy a hacer esto cuando el user venga del registro
+     //si hay algo en el local es que viene del login
       useAutoLogin(allUser, login);
     } else {
-      console.log("deberia irme")
+     //si ya hay algo en el local mandalo al dashboard
       return <Navigate to="/dashboard" />;
     }
   }
