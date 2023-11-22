@@ -3,15 +3,19 @@
 
 import { Outlet } from 'react-router-dom'
 import './App.css'
+import { Footer, Header } from './components'
 
 
 export const App=()=> {
 
   return (
     <>
- 
-  <Outlet/>
- 
+ <Header/>
+ <main>
+    <Outlet/>
+ </main>
+
+<Footer/>
     </>
   )
 }

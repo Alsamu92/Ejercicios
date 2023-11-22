@@ -1,2 +1,6 @@
 export *from"./Mapa/Mapa"
 export *from"./MapaCiudad/MapaCiudad"
+export *from"./Register/Register"
+export *from"./Login/Login"
+export *from"./CheckCode/CheckCode"
+export *from"./Dashboard/Dashboard"
