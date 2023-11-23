@@ -5,7 +5,7 @@ export const Footer = () => {
     <>
       <div className="whiteContainer"></div>
       <footer>
-        <h4>With 💖 from Neoland 🤘</h4>
+        <h4>Empower your journey with knowledge and inspiration.</h4>
       </footer>
     </>
   );

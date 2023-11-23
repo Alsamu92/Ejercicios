@@ -47,7 +47,7 @@ export const Register = () => {
 
 
   useEffect(() => {
-    console.log(res);
+    
     useErrorRegister(res, setRegisterOk, setRes);
     //si es un 200 llama a la funcion puente
     if (res?.status == 200) bridgeData("ALLUSER");

@@ -6,10 +6,10 @@ export const Card = ({name,edad,estado,ocupacion,lugar,src}) => {
     <img className="imagen" src={src} alt={name}></img>
     <div className="info">
       <h2>{name}</h2>
-      <div className="campo"><strong>Edad:</strong> {edad}</div>
-      <div className="campo"><strong>Estado:</strong> {estado}</div>
-      <div className="campo"><strong>Lugar de Nacimiento:</strong> {lugar}</div>
-      <div className="campo"><strong>Ocupación:</strong> {ocupacion}</div>
+      <div className="campo"><strong>Age:</strong> {edad}</div>
+      <div className="campo"><strong>Status:</strong> {estado}</div>
+      <div className="campo"><strong>Place of Birth:</strong> {lugar}</div>
+      <div className="campo"><strong>Occupation:</strong> {ocupacion}</div>
     </div>
   </div>
   )

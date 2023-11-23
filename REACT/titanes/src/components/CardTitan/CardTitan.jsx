@@ -13,7 +13,7 @@ export const CardTitan = ({ name, src, owner, handleMostrarCard, id }) => {
   return (
     <div className="tarjeta titanc">
       {!mostrarPersonaje ? (
-        <React.Fragment>
+        <>
           <img className="imagen" src={src} alt={name} />
           <div className="info">
             <button className='cierre' onClick={() => handleMostrarCard()}>
@@ -21,12 +21,12 @@ export const CardTitan = ({ name, src, owner, handleMostrarCard, id }) => {
             </button>
             <h2>{name}</h2>
             <div className="campo click" onClick={handleMostrar}>
-              <strong>Propietario:</strong> {personaje?.data?.name}
+              <strong>Current inheritor:</strong> {personaje?.data?.name}
             </div>
           </div>
-        </React.Fragment>
+        </>
       ):
-      <React.Fragment>
+      <>
       <img className="imagen" src={personaje?.data?.img?.replace(/\.png.*$/, '.png')} alt={personaje?.data.name} />
       <div className="info">
         <button className='cierre' onClick={() => handleMostrarCard()}>
@@ -34,10 +34,10 @@ export const CardTitan = ({ name, src, owner, handleMostrarCard, id }) => {
         </button>
         <h2>{personaje.data.name}</h2>
         <div className="campo click" onClick={handleMostrar}>
-        <strong>Titan que posee:</strong> {name}
+        <strong>Possessing Titan:</strong> {name}
         </div>
       </div>
-    </React.Fragment>
+    </>
 }
     </div>
   );

@@ -46,7 +46,7 @@ export const useLoginError = (res, setRes, userLogin, setLoginOk) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Password dont match ❎",
+      text: "Password doesn't  match ❎",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -58,7 +58,7 @@ export const useLoginError = (res, setRes, userLogin, setLoginOk) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Interval Server Error ❎!",
+      text: "Internal Server Error ❎!",
       showConfirmButton: false,
       timer: 1500,
     });

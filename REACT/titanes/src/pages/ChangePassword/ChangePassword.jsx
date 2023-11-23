@@ -35,7 +35,7 @@ export const ChangePassword = () => {
     } else {
       Swal.fire({
         icon: "error",
-        title: " New Password don't match witch confirmation password❎.",
+        title: " New Password doesn't match with confirmation password❎.",
         showConfirmButton: false,
         timer: 2500,
       });

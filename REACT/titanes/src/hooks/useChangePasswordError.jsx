@@ -1,6 +1,6 @@
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
 export const useChangePasswordError = (res, setRes, setUser) => {
-  console.log("entro al custom hook 💚");
+  
   //!----------------- 200: updateUser: true,
   if (res?.data?.updateUSer?.toString() == "true") {
     setUser(() => null);
@@ -8,7 +8,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     setRes(() => ({}));
     return Swal.fire({
       icon: "success",
-      title: "Change password ok ✅",
+      title: "Password changed successfully ✅",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -18,7 +18,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     setRes(() => ({}));
     return Swal.fire({
       icon: "error",
-      title: "Interval server error ❎.",
+      title: "Internal server error ❎.",
       text: "Please, try again",
       showConfirmButton: false,
       timer: 2500,
@@ -32,7 +32,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Old password don't match,  ❎ Try again, please",
+      text: "Old password doesn't match ❎. Try again, please",
       showConfirmButton: false,
       timer: 3000,
     });
@@ -44,7 +44,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "La contraseña no es segura,  ❎ Try again, please",
+      text: " Password isn't secure,  ❎ Try again, please",
       showConfirmButton: false,
       timer: 3000,
     });
@@ -55,7 +55,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     setRes(() => ({}));
     return Swal.fire({
       icon: "error",
-      title: "Interval server error ❎.",
+      title: "Internal server error ❎.",
       text: "Please, try again",
       showConfirmButton: false,
       timer: 3000,
@@ -68,7 +68,7 @@ export const useChangePasswordError = (res, setRes, setUser) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Interval Server Error ❎!",
+      text: "Internal Server Error ❎!",
       showConfirmButton: false,
       timer: 1500,
     });

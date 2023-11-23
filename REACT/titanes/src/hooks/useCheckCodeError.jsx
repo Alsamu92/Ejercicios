@@ -13,7 +13,7 @@ export const useCheckCodeError = (
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Interval Server Error ❎!",
+      text: "Internal Server Error ❎!",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -23,7 +23,7 @@ export const useCheckCodeError = (
   // ------------------------- 200 test todo correcto
 //convertir a string por seguridad
   if (res?.data?.testCheckUser?.toString() == "true") {
-    console.log("aaaaaaaaaaa")
+   
     /// si viene del login modificamos el estado de user del contexto para poner el check en true
     //este viene del login
     if (localStorage.getItem("user")) {
@@ -42,13 +42,13 @@ export const useCheckCodeError = (
     setRes(() => ({}));
     Swal.fire({
       icon: "success",
-      title: "Ok correct code ✅",
+      title: "Correct code! ✅",
       showConfirmButton: false,
       timer: 1500,
     });
   }
 
-  //TODO ----------------------- PENDIENTE DE EXPLICAR ESTOS ERRRORES ----------------------------------
+
   // -------------- 200 test = false
 
   if (res?.data?.testCheckOk?.toString() == "false") {
@@ -56,8 +56,8 @@ export const useCheckCodeError = (
     setRes(() => ({}));
     Swal.fire({
       icon: "error",
-      title: "Interval server error ❎.",
-      text: "No delete user. Try again, please.",
+      title: "Internal server error ❎.",
+      text: "Try again, please.",
       showConfirmButton: false,
       timer: 2500,
     });
@@ -70,8 +70,8 @@ export const useCheckCodeError = (
     setRes(() => ({}));
     Swal.fire({
       icon: "error",
-      title: "No correct Code ❎.",
-      text: "Your user is delete. Register again, please.",
+      title: "Inorrect Code ❎.",
+      text: "Your account has been deleted. Please register again.",
       showConfirmButton: false,
       timer: 2500,
     });
@@ -83,7 +83,7 @@ export const useCheckCodeError = (
     Swal.fire({
       icon: "error",
       title: "No correct Code ❎.",
-      text: "No delete user. Try again, please.",
+      text: "Incorrect code. Try again, please.",
       showConfirmButton: false,
       timer: 2500,
     });

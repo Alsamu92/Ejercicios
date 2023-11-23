@@ -1,7 +1,7 @@
 
 import Swal from "sweetalert2"
 export const useErrorRegister = (res, setRegisterOk, setRes) => {
-  console.log("entro",res?.response?.data)
+  
   //? si la respuesta es ok ---- > directamente esta el status en la primera clave es decir: res.status
   //? si la respuesta no esta ok--> res.response.status
   //! ------------------ 200 : todo ok

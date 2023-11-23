@@ -28,7 +28,7 @@ export const useUpdateError = (res, setRes, setUser, logout) => {
       setRes(() => ({}));
       return Swal.fire({
         icon: "success",
-        title: `Update data user✅`,
+        title: `Updated data user✅`,
         text: ` Update: ${check} `,
         showConfirmButton: false,
         timer: 1500,
@@ -43,7 +43,7 @@ export const useUpdateError = (res, setRes, setUser, logout) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Nombre ya en uso, elige otro❎ ",
+      text: "Already in use. Choose another name❎ ",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -55,7 +55,7 @@ export const useUpdateError = (res, setRes, setUser, logout) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Interval Server Error! Don't update user ❎ ",
+      text: "Internal Server Error! Didn't update user ❎ ",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -67,7 +67,7 @@ export const useUpdateError = (res, setRes, setUser, logout) => {
       setRes(() => ({}));
       return Swal.fire({
         icon: "error",
-        title: `Error update data user ❌`,
+        title: `Error updating data ❌`,
         showConfirmButton: false,
         timer: 1500,
       });
