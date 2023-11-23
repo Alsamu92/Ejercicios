@@ -2,7 +2,7 @@ import { createBrowserRouter} from "react-router-dom";
 import { App } from "../App";
 
 import { Mapa } from "../pages/Mapa/Mapa";
-import { CheckCode, Dashboard, Login, MapaCiudad } from "../pages";
+import { CheckCode, Dashboard, Login, MapaCiudad, Titanes } from "../pages";
 import { Register } from "../pages/Register/Register";
 import { Protected } from "../components/ProtectedRoute/Protected";
 import ProtectedCheckChildren from "../components/ProtectedRoute/ProtectedCheckChildren";
@@ -39,6 +39,14 @@ export const router = createBrowserRouter([
           <Protected>
             <Dashboard />
           </Protected>
+        ),
+      },
+      {
+        path: "/titanes",
+        element: (
+          
+            <Titanes/>
+         
         ),
       },
 

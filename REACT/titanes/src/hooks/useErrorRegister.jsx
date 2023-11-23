@@ -6,7 +6,7 @@ export const useErrorRegister = (res, setRegisterOk, setRes) => {
   //? si la respuesta no esta ok--> res.response.status
   //! ------------------ 200 : todo ok
   if (res?.status == 200) {
-    console.log("entro en el if 🎉");
+ //cuando es un 200 convierte a string los datos para setearlos en el local y que los pueda usar la funcion puente
     const dataToString = JSON.stringify(res);
     localStorage.setItem("data", dataToString);
     setRegisterOk(() => true);

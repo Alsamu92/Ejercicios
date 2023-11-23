@@ -21,10 +21,31 @@
     border-radius: 50%; /* Hace que el div sea un círculo */
     position: relative;
     top: 10%;
-    left: 9%;
+    left: 19%;
     transform: translate(-50%, -50%); /* Centra el círculo */
     animation: destellos 2s infinite alternate; /* Animación de destellos */
   }
+
+  #logo-eren{
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.158); /* Color del círculo */
+    border-radius: 50%; /* Hace que el div sea un círculo */
+    position: relative;
+    top: 35%;
+    left:17%;
+    transform: translate(-50%, -50%); /* Centra el círculo */
+    animation: destellos 2s infinite alternate; /* Animación de destellos */
+  }
+  #imagen-eren{
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.158); /* Color del círculo */
+    border-radius: 50%; /* Hace que el div sea un círculo */
+    position: relative;
+    animation: destellos 2s infinite alternate; /* Animación de destellos */
+  }
+ 
   .circulo-ciudad:hover {
    cursor:zoom-in;
   }

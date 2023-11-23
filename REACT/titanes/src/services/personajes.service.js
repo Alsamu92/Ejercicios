@@ -18,6 +18,15 @@ export const traerLugares=()=>{
     }   
     return lugares
 }
+export const traerTitanes=()=>{
+    const titanes = [];
+    for (let i = 1; i < 10; i++) {
+      const { data } = useFetch(`https://api.attackontitanapi.com/titans/${i}`);
+    
+        data && titanes.push(data);
+    }   
+    return titanes
+}
 
 
 
