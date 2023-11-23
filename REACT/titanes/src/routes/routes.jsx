@@ -2,11 +2,10 @@ import { createBrowserRouter} from "react-router-dom";
 import { App } from "../App";
 
 import { Mapa } from "../pages/Mapa/Mapa";
-import { CheckCode, Dashboard, Login, MapaCiudad, Titanes } from "../pages";
+import { ChangePassword, CheckCode, Dashboard, FormProfile, Login, MapaCiudad, Profile, Titanes,ForgotPassword  } from "../pages";
 import { Register } from "../pages/Register/Register";
 import { Protected } from "../components/ProtectedRoute/Protected";
 import ProtectedCheckChildren from "../components/ProtectedRoute/ProtectedCheckChildren";
-
 
 
 export const router = createBrowserRouter([
@@ -49,6 +48,36 @@ export const router = createBrowserRouter([
          
         ),
       },
+      {
+        path: "/profile",
+        element: (
+          <Protected>
+            <Profile />
+          </Protected>
+        ),
+        children: [
+          {
+            path: "/profile/changePassword",
+            element: (
+              <Protected>
+                <ChangePassword />
+              </Protected>
+            ),
+          },
+          {
+            path: "/profile/",
+            element: (
+              <Protected>
+                <FormProfile />
+              </Protected>
+            ),
+          },
+        ],
+      },
+      {
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
+      },
 
       {
         path: "/verifyCode",
@@ -61,4 +90,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  
 ]);
+

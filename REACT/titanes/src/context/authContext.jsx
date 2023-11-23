@@ -10,6 +10,8 @@ export const AuthContextProvider = ({ children }) => {
     return user ? JSON.parse(user) : null;
   });
 
+  const [deleteUser, setDeleteUser] = useState(false);
+
   const [allUser, setAllUser] = useState({
     data: {
       confirmationCode: "",
@@ -29,10 +31,8 @@ export const AuthContextProvider = ({ children }) => {
     const dataJson = JSON.parse(data);
     console.log(dataJson);
     switch (state) {
-      //recibe por el parametro del registrer setea el local storage en el estado alluser
       case "ALLUSER":
         setAllUser(dataJson);
-        //cuando lo guarde en el estado que lo borre del local
         localStorage.removeItem("data");
 
         break;
@@ -62,9 +62,10 @@ export const AuthContextProvider = ({ children }) => {
       allUser,
       setAllUser,
       bridgeData,
+      deleteUser,
+      setDeleteUser,
     }),
-    //que rememorice cuando cambie cualquiera de estas dos
-    [user, allUser]
+    [user, allUser, deleteUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,3 +1,4 @@
+import { updateToken } from "../util/updateToken";
 import { APIUser } from "./service.config";
 
 //! ------------------------REGISTER------------------------------
@@ -44,3 +45,48 @@ export const loginUserService = async (formData) => {
     .then((res) => res)
     .catch((error) => error);
 };
+
+
+
+//! ------------------------------------ CAMBIO CONTRASEÑA SIN TOKEN-------------
+
+export const forgotPasswordUser = async (formData) => {
+  return APIUser.patch("/cambiarpass/cambiarpass/", formData)
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+//! ------------------------------------BORRADO DEL USUARIO----------------------
+
+export const deleteUserService = async () => {
+  return APIUser.delete("/users/", {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`,
+    },
+  })
+    .then((res) => res)
+    .catch((error) => error);
+};
+//! ---------------------------- CAMBIO CONTRASEÑA CUANDO ESTAS LOGADO----
+export const changePasswordUserToken = async (formData) => {
+  return APIUser.patch("/cambiarlogeado/", formData, {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`,
+    },
+  })
+    .then((res) => res)
+    .catch((error) => error);
+};
+//! ------------------------------ UPDATE USER -----------------------
+
+export const updateUser = async (formData) => {
+  return APIUser.patch("/update/update", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${updateToken()}`,
+    },
+  })
+    .then((res) => res)
+    .catch((error) => error);
+};
+ 
