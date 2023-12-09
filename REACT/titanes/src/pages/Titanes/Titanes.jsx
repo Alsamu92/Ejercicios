@@ -15,7 +15,7 @@ const [titan, setTitan] = useState(null);
     setMostrarCard(!mostrarCard);}
   return (<> 
   <div id="fondo-titanes">
-  {mostrarCard && <CardTitan name={titan?.name}   src={titan?.img.replace(/\.png.*$/, '.png')}  owner={titan?.current_inheritor} handleMostrarCard={handleMostrarCard} id={titan?.id} />}
+  {mostrarCard && <CardTitan name={titan?.name}  src={titan?.img.replace(/\.png.*$/, '.png')}  owner={titan?.current_inheritor} handleMostrarCard={handleMostrarCard} id={titan?.id} />}
  {  !mostrarCard &&
      <div id="base-titanes">
     

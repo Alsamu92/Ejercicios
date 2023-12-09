@@ -25,7 +25,7 @@ export const checkCodeConfirmationUser = async (formData) => {
 //!  ------------------------------- RESEND CODE -------------------------------
 
 export const resendCodeConfirmationUser = async (formData) => {
-  return APIUser.post("/users/resend", formData)
+  return APIUser.post("/resendcode/", formData)
     .then((res) => res)
     .catch((error) => error);
 };

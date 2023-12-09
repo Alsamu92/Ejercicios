@@ -7,8 +7,9 @@ import { useAuth } from "../../context/authContext";
 
 
 import { useCheckCodeError } from "../../hooks/useCheckCodeError";
-import { checkCodeConfirmationUser } from "../../services/user.service";
+import { checkCodeConfirmationUser, resendCodeConfirmationUser } from "../../services/user.service";
 import { useAutoLogin } from "../../hooks/useAutoLogin";
+import { useResendCodeError } from "../../hooks/useResendCodeError";
 
 
 export const CheckCode = () => {
@@ -55,9 +56,29 @@ export const CheckCode = () => {
     }
   };
 
-  const handleReSend = async () => {};
+  const handleReSend = async () => {
+    const userLocal = localStorage.getItem("user");
+    if (userLocal != null) {
+      const parseUser = JSON.parse(userLocal);
+      const customFormData = {
+        email: parseUser.email,
+      };
 
-  //! --------USE EFFECT QUE NOSC SIRVE CUANDO CAMBIA RES A LANZAR EL COMPROBADOR DE ERRORES
+      setSend(true);
+      setResResend(await resendCodeConfirmationUser(customFormData));
+      setSend(false);
+    } else {
+      const customFormData = {
+        email: allUser?.data?.user?.email,
+      };
+
+      setSend(true);
+      setResResend(await resendCodeConfirmationUser(customFormData));
+      setSend(false);
+    }
+  };
+
+  //! --------USE EFFECT QUE NOS SIRVE CUANDO CAMBIA RES A LANZAR EL COMPROBADOR DE ERRORES
   useEffect(() => {
     console.log("😭", res);
     useCheckCodeError(
@@ -70,9 +91,11 @@ export const CheckCode = () => {
     );
   }, [res]);
 
-  // useEffect(() => {
-  //   console.log("😃", resResend);
-  // }, [resResend]);
+  useEffect(() => {
+    console.log("😃", resResend);
+    useResendCodeError(resResend, setResResend, setUserNotFound);
+  }, [resResend]);
+
 
   //! -------- PONEMOS LOS CONDICIONALES QUE EVALUAN SI ESTAN A TRUE LOS ESTADOS DE NAVEGACION (deleUser, okCheck)
   if (okCheck) {

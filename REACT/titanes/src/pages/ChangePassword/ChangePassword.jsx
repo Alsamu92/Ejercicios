@@ -12,7 +12,7 @@ export const ChangePassword = () => {
   const [res, setRes] = useState({});
   const [send, setSend] = useState(false);
 
-  //! -----------------1) LA FUNCIOON QUE GESTIONA EL FORMULARIO
+  //! -----------------1) LA FUNCION QUE GESTIONA EL FORMULARIO
 
   const formSubmit = (formData) => {
     const { password, newPassword, confirmPassword } = formData;
