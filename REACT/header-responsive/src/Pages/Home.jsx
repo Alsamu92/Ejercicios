@@ -12,45 +12,28 @@ export const Home = () => {
     const dataJson = await data.json();
     setDatosUser(dataJson?.results);
   };
+useEffect(()=>{
+getUsers()
+},[])
+useEffect(()=>{
+setDatosUnico(datosUser?.filter((persona)=>(persona?.name.first.toLowerCase().includes(valueInput.toLowerCase()))))
+},[valueInput])
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-  const handleUnico=(name)=>{
-setDatosUnico(name)
-  }
-console.log(datosUnico)
-  return (<>
-  <div className="individual">
- {datosUnico && <figure>
-  <h3>{datosUnico.name.first}</h3>
-  <img src={datosUnico.picture.large}></img>
-  </figure>}
-  </div>
-    <div className="contenedor">
-      <Buscador
-        type="text"
-        cambio={(e) => setValueInput(e.target.value)}
-        valor={valueInput}
-      />
-
-      {datosUser &&
-      
-      datosUser?.filter((name) =>
-        name.name.first.toLowerCase().includes(valueInput.toLowerCase())
-      ) != 0 &&valueInput!="" ? (
-        datosUser
-          .filter((name) =>
-            name.name.first.toLowerCase().includes(valueInput.toLowerCase())
-          )
-          .map((name) => <figure onClick={()=>handleUnico(name)} className="card">
-          <p>{name.name.title} {name.name.first} {name.name.last}</p>
-          <img src={name.picture.thumbnail}></img>
-          </figure>)
-      ) : (
-        <p>No hay coincidencias</p>
-      ) }
+ 
+  return (<div>
+   <input value={valueInput} onChange={(e)=>setValueInput(e.target.value)}></input>
+{    datosUser && valueInput==""? datosUser?.map((persona)=>(
+  <figure key={persona.email}>
+<h3>{persona.name.first}</h3>
+<img src={persona.picture.thumbnail}/>
+</figure>
+)): datosUnico && datosUnico?.map((persona)=>(
+  <figure key={persona.email}>
+<h3>{persona.name.first}</h3>
+<img src={persona.picture.thumbnail}/>
+</figure>
+)) }
+ 
     </div>
-    </>
   );
 };
