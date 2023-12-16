@@ -21,6 +21,7 @@ setDatosUnico(datosUser?.filter((persona)=>(persona?.name.first.toLowerCase().in
 
  
   return (<div>
+    <p>Buscador con actulización a tiempo real por nombre de usuario.</p>
    <input value={valueInput} onChange={(e)=>setValueInput(e.target.value)}></input>
 {    datosUser && valueInput==""? datosUser?.map((persona)=>(
   <figure key={persona.email}>

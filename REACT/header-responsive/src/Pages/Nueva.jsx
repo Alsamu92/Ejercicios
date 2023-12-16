@@ -27,7 +27,7 @@ setTiposS(types)
 }
 
 
-console.log(filt)
+
 useEffect(()=>{
     getPokemon()
 getTipos()
@@ -48,7 +48,13 @@ const handleTipos=(tip)=>{
 
   return (
   <>
-   <BotonesTipo  items={tiposS} onButtonClick={handleTipos} />
+  <p>buscador doble, por tipo o por nombre con actualización a tiempo real y botones generados dinámicamente 
+  </p>
+  <div>
+    <button onClick={()=>setFilt(datos)}>All</button>
+    <BotonesTipo  items={tiposS} onButtonClick={handleTipos} />
+  </div>
+   
   <input value={valueInput} onChange={(e)=>setValueInput(e.target.value)}></input>
 
   {datos && valueInput==""? filt? filt?.map((pkm)=>(

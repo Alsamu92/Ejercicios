@@ -22,7 +22,7 @@ useEffect(()=>{
     getHouse()
    },[stat])
    const getHouse=(stat,result)=>{
-    console.log("entro")
+
     switch (stat) {
       
         case "house":
@@ -56,6 +56,7 @@ useEffect(()=>{
   return (
  
     <div>
+        <p>Paginado con botones y buscador select con 3 tipos de búsqueda diferente. </p>
         {botones}
         <select onChange={(e) => setStat(e.target.value)}>
         <option  value="def">All</option>
