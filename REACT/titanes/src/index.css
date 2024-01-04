@@ -1,0 +1,19 @@
+body{
+  display: flex;
+  min-height: 700px;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  background-image: url("https://res.cloudinary.com/djfkchzyq/image/upload/v1700585184/up8nxbrsdfzogzlubktm.jpg")
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 82vh;
+}

@@ -1,0 +1,73 @@
+.ciudad-detalle{
+    background-image: url("https://res.cloudinary.com/djfkchzyq/image/upload/v1700731122/afhzfz9wik0l9zhjvaan.png");
+    /* background-size: cover; */
+    background-position: center;
+    height: 90VH;
+    min-height:700px ;
+    max-height: 700px;
+    width: 700px;
+    min-width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5)
+  }
+  .flecha{
+    position: relative;
+    right: 40%;
+    bottom:35%
+  }
+  .spanflecha{
+    font-size: 5em;
+    font-weight: bold;
+    color: black;
+    position: relative;
+  
+  }
+  .circulo-distrito {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(219, 63, 52, 0.158); /* Color del círculo */
+    border-radius: 50%; /* Hace que el div sea un círculo */
+    position: relative;
+    
+    transform: translate(-50%, -50%); /* Centra el círculo */
+    animation: destellos 2s infinite alternate; /* Animación de destellos */
+  }
+
+  .circulo-ciudad:hover {
+   cursor:zoom-in;
+  }
+  
+  @keyframes destellos {
+    to {
+      box-shadow: 0 0 10px 5px rgba(253, 253, 253, 0.925); /* Efecto de destellos */
+    }
+  }
+/* Posiciones de los distritos */  
+
+.mitras{
+    top: 5%;
+    left: 30%;
+  }
+
+     .ermich{top: 29%;
+      left: 21%;}
+    .klorva{top: 0%;
+      left: -25%;}
+    .orvud{top: -23%;
+      left: 7%;}
+     .ragako{top: 23%;
+      left: -20%;}
+    .shiganshina{top: 50%;
+      left: -8%;}
+    .stohess{top: 5%;
+      left: 14%;}
+    .trost{top: 40%;
+      left: -23%;}
+   .chapel{top: -25%;
+    left: -18%;}
+.utgard{top: 30%;
+  left: -65%;}

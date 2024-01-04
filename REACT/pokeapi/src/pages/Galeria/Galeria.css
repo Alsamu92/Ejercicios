@@ -1,0 +1,88 @@
+#contenedor {
+    height: 19%; 
+    width: 80%;
+    position: relative;
+    top: 4%;
+border-radius: 10px;
+    background-color:rgba(153, 153, 153, 0) ;
+    overflow-y: auto; 
+margin:4px 0px 8% 10%;
+
+    
+  }
+
+  #contenedor::-webkit-scrollbar {
+    display: none;
+  }
+ .figure{
+   margin-top: -30px;
+
+    background-color:rgba(17, 87, 120, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    gap: 0;
+  }
+ .figure img{
+  width: 180px;
+  
+   
+    background-color:rgba(53, 166, 204, 0);
+  }
+
+ 
+
+  #pokedex {
+   
+    width: 380px;
+  
+    height: 600px; 
+    background-image: url('https://res.cloudinary.com/djfkchzyq/image/upload/v1700391223/o5bi2hzh8ouoxcdeny6t.jpg');
+   
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    -webkit-box-shadow: 5px 5px 15px 5px #333131; 
+    box-shadow: 5px 5px 15px 5px #474747;
+}
+
+input{
+  width: 180px;
+  height: 100px;
+  position: absolute;
+  top: 430px;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(11, 173, 11);
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  border: none;
+  outline:none
+}
+
+.buscar{
+  width: 54px;
+  height: 28px;
+  position: relative;
+  top: 1%;
+  left: 9%;
+  background-color: #e7e3e3be;
+}
+.busqueda-tipos{
+  width: 10%;
+  position: relative;
+  border-radius: 50%;
+  height:7%;
+ 
+  top: 12%;
+  right: 30%;
+  background-color: rgba(207, 207, 62, 0.847);
+}

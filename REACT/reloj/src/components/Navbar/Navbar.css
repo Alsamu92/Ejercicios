@@ -1,0 +1,25 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #4d2600;
+    padding: 10px;
+  }
+  
+  NavLink {
+    text-decoration: none;
+  }
+  
+  button {
+    background-color: #8b4513; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #a0522d; 
+  }

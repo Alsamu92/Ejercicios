@@ -1,0 +1,28 @@
+#contenedor-dentro {
+    height: 23%; 
+    width: 50%;
+border-radius: 10px;
+    background-color:rgba(153, 153, 153, 0) ;
+    overflow: hidden; 
+    position: absolute;
+    top: 35%;
+    left:30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+  }
+  
+.figure-dentro{
+  background-color: rgba(255, 0, 0, 0);
+ 
+  }
+ .figure-dentro img{
+   width: 90%;
+  
+   
+    background-color:rgba(53, 166, 204, 0);
+  }
+
+ 

@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 
+    "grid-header grid-header"
+    "grid-sidebar grid-nav"
+    "grid-sidebar grid-article"
+    "grid-footer grid-footer";
+    gap: 15px;
+  }
+  
+  
+  .container div {
+    padding: 15px;
+    font-size: 32px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: white;}
+  
+   
+  
+  .header {
+    background-color: #393f4d;
+    grid-area:grid-header;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
+  .menu ul{
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .menu li {
+    font-size: 16px;
+  }
+  
+  .sidebar {
+    background-color: #FF7755;
+    grid-area:grid-sidebar;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr 1fr 1fr;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .sidebar .photo {
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    font-weight: normal;
+    border-radius: 10px;
+  }
+  
+  
+  .sidebar .side-content {
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  
+  .nav {
+    background-color: #FF7755;
+    grid-area:grid-nav
+  }
+  .nav ul{display: grid;
+    grid-template-columns: auto auto auto;}
+  
+  .nav ul li {
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  .article {
+    background-color: #bccbde;
+    grid-area:grid-article;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .article p {
+    font-size: 18px;
+    font-family: sans-serif;
+    color: white;
+    text-align: left;
+  }
+  
+  .article .card {
+    background-color: #FFFFFF;
+    color: black;
+    text-align: center;
+    height: 200px;
+  }
+  
+  .card p {
+    color: black;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  
+  .card .title {
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .footer {
+    background-color: #393f4d;
+    grid-area:grid-footer
+  }
+  
+  .footer p {
+    font-size: 13px;
+    font-weight: normal;  
+  }
+  /* 
+
+
+- El elemento de la barra lateral tiene un espacio de 50px
+
+- El elemento del artículo debe establecer columnas de cuadrícula usando repetir junto con las propiedades de ajuste automático y minmax.
+- Las columnas del artículo deben tener un valor mínimo de 250px y un máximo de 1fr unidad.
+- El elemento del artículo tiene un espacio de 15px.
+- Los elementos de la tarjeta dentro del contenedor del artículo tienen una altura de 200px.
+
+
+ */
